@@ -1,8 +1,6 @@
 import React from 'react';
 import './sass/main.scss';
-import Prova from "./components/Prova"
-import Button from "./components/Button"
-import {NavBar} from "./components"
+import {NavBar,NewFiltersBtns,Main} from "./components"
 
 function App() {
 
@@ -12,11 +10,7 @@ function App() {
   return (
     <>
     <NavBar/>
-    <div className="app">
-    ciaoooo
-    </div>
-    <Prova/>
-    <Button/>
+    <Main/>
     </>
   );
 }

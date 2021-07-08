@@ -6,10 +6,13 @@
 
 //Components
 @import "components/navBar";
+@import "components/newFiltersBtns";
+
 
 
 body {
     background-color: $light-bg;
+
 }
 
 body.dark-theme {
@@ -18,4 +21,18 @@ body.dark-theme {
     .nav {
         background-color: $purple-dark;
     }
+    .filters-btn-container {
+        color: $white !important;
+        button {
+                    color: $white !important;
+
+        }
+    }
 }
+
+
+// @media (min-width: $mq-medium){
+// .main {
+//     margin-left: $navBar-vertical-width;
+// }
+// }

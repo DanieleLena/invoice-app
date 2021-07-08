@@ -9,7 +9,7 @@
   width: 72px;
   height: 100%;
   position: relative;
-  background-color: $purple-light;
+  background-color: $purple;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   display: grid;
@@ -41,7 +41,7 @@
 .avatar-container {
   width: 72px;
   height: 100%;
-  border-left: 1px solid $purple-light;
+  border-left: 1px solid $purple;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -72,11 +72,13 @@
 
 @media (min-width: $mq-medium) {
   .nav {
-    width: 103px;
+    width: $navBar-vertical-width;
     height: 100vh;
     flex-direction: column;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
+    position:fixed;
+    left: 0;
   }
   .purple-container {
     width: 100%;
@@ -100,6 +102,6 @@
   }
   .avatar-container {
     border-left: none;
-    border-top: 1px solid $purple-light;
+    border-top: 1px solid $purple;
   }
 }

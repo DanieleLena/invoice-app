@@ -1,18 +1,29 @@
 const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
   const { type, payload } = action;
-  console.log(type);
+  
 
   switch (type) {
-    case "TOGGLE_THEME":
-      {
-        if (state.isDark) document.body.classList.remove("dark-theme");
-        else {
-          document.body.classList.add("dark-theme");
-        }
-
-        return { ...state, isDark: !state.isDark };
+    case "TOGGLE_THEME": {
+      if (state.isDark) document.body.classList.remove("dark-theme");
+      else {
+        document.body.classList.add("dark-theme");
       }
-      break;
+
+      return { ...state, isDark: !state.isDark };
+    }
+    case "UPDATE_FILTER": {
+      
+      
+    //   const {name,value} = payload;
+    // console.log(name);
+    
+    let newvalue = !state.filter[payload];
+    
+
+      
+      
+      return { ...state, filter: { ...state.filter, [payload]: newvalue } };
+    }
   }
 
   throw new Error(`No Matching "${action.type}" - action type`);

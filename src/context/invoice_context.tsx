@@ -32,16 +32,27 @@ interface Invoice {
   ];
   total: Number;
 }
+interface Filter {
+  draft: boolean,
+  pending: boolean,
+  paid: boolean
+}
 
 interface State {
   isDark: boolean;
   invoices: Array<Invoice>;
   total_invoices: Number;
+  filter: Filter,
 }
 const initialState: State = {
   isDark: false,
   invoices: [],
   total_invoices: 0,
+  filter: {
+    draft: true,
+    pending: true,
+    paid: true,
+  },
 };
 
 const InvoiceContext = React.createContext(null);
@@ -52,12 +63,23 @@ export const InvoiceProvider: React.FC = ({ children }) => {
   const toggleTheme = () => {
     dispatch({ type: "TOGGLE_THEME" });
   };
+  const updateFilter = (e: React.FormEvent<HTMLInputElement>) => {
+    let name = e.currentTarget.name;
+    let value = e.currentTarget.value;
+
+    
+    
+    
+    dispatch({type: "UPDATE_FILTER", payload: name});
+    
+  };
 
   return (
     <InvoiceContext.Provider
       value={{
         ...state,
         toggleTheme,
+        updateFilter
       }}
     >
       {children}
