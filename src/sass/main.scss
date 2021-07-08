@@ -1,0 +1,21 @@
+@import "reset";
+
+@import "variables";
+
+@import "typography";
+
+//Components
+@import "components/navBar";
+
+
+body {
+    background-color: $light-bg;
+}
+
+body.dark-theme {
+    background-color: $dark-bg;
+
+    .nav {
+        background-color: $purple-dark;
+    }
+}
