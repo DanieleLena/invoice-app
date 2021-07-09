@@ -2,18 +2,25 @@ import React from "react";
 import { useInvoiceContext } from "../context/invoice_context";
 
 const NewFiltersBtns = () => {
-  const { total_invoices, updateFilter, filter:{draft,pending,paid} } = useInvoiceContext()!;
+  const {
+    total_invoices,
+    updateFilter,
+    filter: { draft, pending, paid },
+  } = useInvoiceContext()!;
 
   return (
     <div className="filters-btn-container">
       <div className="filter-btn-left">
         <h1>Invoices</h1>
-
-        <p>
-          <span className="hidden-mobile-span">There are </span>
-          {total_invoices} <span className="hidden-mobile-span">total </span>{" "}
-          invoices
-        </p>
+        {total_invoices ? (
+          <p>
+            <span className="hidden-mobile-span">There are </span>
+            {total_invoices} <span className="hidden-mobile-span">total </span>{" "}
+            invoices
+          </p>
+        ) : (
+          <p>No invoices</p>
+        )}
       </div>
       <div className="filter-btn-right">
         <div className="dropdownMenu">

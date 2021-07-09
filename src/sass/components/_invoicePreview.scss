@@ -1,0 +1,114 @@
+.invoice-preview {
+  width: 90%;
+//   height: 134px;
+  margin: auto;
+  background-color: $white;
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: .5fr .5fr;
+  font-size: 1.2rem;
+
+  &:hover {
+      border: 1px solid $purple;
+  }
+}
+
+
+.hashtag {
+  color: $gray;
+}
+.id {
+  font-size: 1.2rem;
+
+}
+.name {
+  color: $gray;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 1.2rem;
+  height: 100%;
+
+}
+.date {
+  margin-bottom: 0;
+  color: $gray;
+  font-size: 1.2rem;
+
+}
+.import {
+    grid-column: 1/2;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    font-size: 1.6rem;
+
+}
+.status-cell {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.status{
+    width: 104px;
+    height: 40px;
+    border-radius: 6px;
+    text-align: end;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $green-bg;
+    h2{
+        margin: 0;
+        color: $green;
+  font-size: 1.2rem;
+
+    }
+}
+.right-arrow{
+    margin-left: 2rem;
+}
+.status-circle {
+    width: 8px;
+    height: 8px;
+    background-color: $green;
+    border-radius: 50%;
+    margin-right: 1rem;
+}
+
+@media (min-width: $mq-small) {
+    .invoice-preview {
+        height: 72px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 0;
+        padding: 1rem 1.5rem;
+    }
+    .id,
+    .date,
+    .name,
+    .import{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0;
+        height: 60px;
+    }
+.id{
+    grid-column: 1/2;
+    justify-content: start;
+    
+}
+.date {
+    grid-column: 2/3;
+}
+.name{
+    grid-column: 3/4;
+}
+.import{
+    grid-column: 4/5;
+}
+    
+}

@@ -47,7 +47,7 @@ interface State {
 const initialState: State = {
   isDark: false,
   invoices: [],
-  total_invoices: 0,
+  total_invoices: 1, // TO CHANGE
   filter: {
     draft: true,
     pending: true,

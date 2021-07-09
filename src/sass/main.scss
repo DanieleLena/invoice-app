@@ -8,6 +8,7 @@
 @import "components/navBar";
 @import "components/newFiltersBtns";
 @import "components/empty";
+@import "components/invoicePreview";
 
 
 
@@ -35,11 +36,16 @@ body.dark-theme {
     .bold-span {
         color: $white;
     }
+    .invoice-preview {
+                background-color: $purple-dark;
+                color: white !important;
+
+    }
 }
 
 
-// @media (min-width: $mq-medium){
-// .main {
-//     margin-left: $navBar-vertical-width;
-// }
-// }
+
+.main {
+    max-width: $max-width;
+    margin: auto;
+}

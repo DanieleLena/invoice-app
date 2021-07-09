@@ -1,5 +1,5 @@
 import React from "react";
-import { NewFiltersBtns, Empty } from ".";
+import { NewFiltersBtns, Empty,InvoicePreview } from ".";
 import { useInvoiceContext } from "../context/invoice_context";
 
 const Main = () => {
@@ -8,7 +8,15 @@ const Main = () => {
   return (
     <main className="main">
       <NewFiltersBtns />
-      {total_invoices ? <h2>ooki</h2> : <Empty />}
+      {total_invoices ? (
+        <>
+          <InvoicePreview />
+          <InvoicePreview />
+          <InvoicePreview />
+        </>
+      ) : (
+        <Empty />
+      )}
     </main>
   );
 };
