@@ -1,21 +1,31 @@
 import React from "react";
+import { isTemplateTail } from "typescript";
+import { Invoice } from "../context/invoice_context";
+import {formatPrice} from "../helpers"
 
-const InvoicePreview = () => {
+
+const InvoicePreview: React.FC< {item: Invoice}> = ({item}) => {
+   console.log("component");
+   console.log(item);
+   const {id,paymentDue,clientName, status,total} = item;
+   
+   
   return (
     <article className="invoice-preview">
       <h3 className="id">
-        <span className="hashtag">#</span>RT5786
+        <span className="hashtag">#</span>
+        {id}
       </h3>
-      <p className="name">Daniele Lena</p>
+      <p className="name">{clientName}</p>
 
-      <p className="date">Due 19 Aug 2021</p>
-      <h2 className="import">£1,800.90</h2>
-<div className="status-cell">
-      <div className="status">
-        <div className="status-circle"></div>
-        <h2>Paid</h2>
-      </div>
-      <img src="/assets/icon-arrow-right.svg" className="right-arrow"></img>
+      <p className="date">{paymentDue}</p>
+      <h2 className="import">{formatPrice(total)}</h2>
+      <div className={`status-cell ${status}`}>
+        <div className="status">
+          <div className="status-circle"></div>
+          <h2>{status}</h2>
+        </div>
+        <img src="/assets/icon-arrow-right.svg" className="right-arrow"></img>
       </div>
     </article>
   );

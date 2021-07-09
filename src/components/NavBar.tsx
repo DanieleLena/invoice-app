@@ -13,9 +13,9 @@ const { isDark, toggleTheme } = useInvoiceContext()!;
         <div className="right-container">
           <div className="switch-container" onClick={toggleTheme}>
             {isDark ? (
-              <img src="/assets/icon-moon.svg" alt="theme"></img>
-            ) : (
               <img src="/assets/icon-sun.svg" alt="theme"></img>
+            ) : (
+              <img src="/assets/icon-moon.svg" alt="theme"></img>
             )}
           </div>
           <div className="avatar-container">

@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useReducer, createContext } from "react";
 import reducer from "../reducers/invoice_reducer";
 
-interface Invoice {
+export interface Invoice {
   id: string;
-  createdAt: Date;
-  paymentDue: Date;
+  createdAt: String;
+  paymentDue: String;
   description: String;
-  paymentTerms: Number;
+  paymentTerms: number;
   clientName: String;
   clientEmail: String;
   status: String;
@@ -25,12 +25,12 @@ interface Invoice {
   items: [
     {
       name: String;
-      quantity: Number;
-      price: Number;
-      total: Number;
+      quantity: number;
+      price: number;
+      total: number;
     }
   ];
-  total: Number;
+  total: number;
 }
 interface Filter {
   draft: boolean;
@@ -41,12 +41,106 @@ interface Filter {
 interface State {
   isDark: boolean;
   invoices: Array<Invoice>;
-  total_invoices: Number;
+  total_invoices: number;
   filter: Filter;
 }
 const initialState: State = {
   isDark: false,
-  invoices: [],
+  invoices: [
+    {
+      id: "RT3080",
+      createdAt: "2021-08-18",
+      paymentDue: "2021-08-19",
+      description: "Re-branding",
+      paymentTerms: 1,
+      clientName: "gino1",
+      clientEmail: "jensenh@mail.com",
+      status: "paid",
+      senderAddress: {
+        street: "19 Union Terrace",
+        city: "London",
+        postCode: "E1 3EZ",
+        country: "United Kingdom",
+      },
+      clientAddress: {
+        street: "106 Kendell Street",
+        city: "Sharrington",
+        postCode: "NR24 5WQ",
+        country: "United Kingdom",
+      },
+      items: [
+        {
+          name: "Brand Guidelines",
+          quantity: 1,
+          price: 1800.9,
+          total: 1800.9,
+        },
+      ],
+      total: 1800.9,
+    },
+    {
+      id: "RT3080",
+      createdAt: "2021-08-18",
+      paymentDue: "2021-08-19",
+      description: "Re-branding",
+      paymentTerms: 1,
+      clientName: "pino2",
+      clientEmail: "jensenh@mail.com",
+      status: "pending",
+      senderAddress: {
+        street: "19 Union Terrace",
+        city: "London",
+        postCode: "E1 3EZ",
+        country: "United Kingdom",
+      },
+      clientAddress: {
+        street: "106 Kendell Street",
+        city: "Sharrington",
+        postCode: "NR24 5WQ",
+        country: "United Kingdom",
+      },
+      items: [
+        {
+          name: "Brand Guidelines",
+          quantity: 1,
+          price: 1800.9,
+          total: 1800.9,
+        },
+      ],
+      total: 1800.9,
+    },
+    {
+      id: "RT3080",
+      createdAt: "2021-08-18",
+      paymentDue: "2021-08-19",
+      description: "Re-branding",
+      paymentTerms: 1,
+      clientName: "dino3",
+      clientEmail: "jensenh@mail.com",
+      status: "draft",
+      senderAddress: {
+        street: "19 Union Terrace",
+        city: "London",
+        postCode: "E1 3EZ",
+        country: "United Kingdom",
+      },
+      clientAddress: {
+        street: "106 Kendell Street",
+        city: "Sharrington",
+        postCode: "NR24 5WQ",
+        country: "United Kingdom",
+      },
+      items: [
+        {
+          name: "Brand Guidelines",
+          quantity: 1,
+          price: 1800.9,
+          total: 1800.9,
+        },
+      ],
+      total: 1800.9,
+    },
+  ],
   total_invoices: 1, // TO CHANGE
   filter: {
     draft: true,
