@@ -1,6 +1,5 @@
 const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
   const { type, payload } = action;
-  
 
   switch (type) {
     case "TOGGLE_THEME": {
@@ -12,16 +11,8 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
       return { ...state, isDark: !state.isDark };
     }
     case "UPDATE_FILTER": {
-      
-      
-    //   const {name,value} = payload;
-    // console.log(name);
-    
-    let newvalue = !state.filter[payload];
-    
+      let newvalue = !state.filter[payload];
 
-      
-      
       return { ...state, filter: { ...state.filter, [payload]: newvalue } };
     }
   }

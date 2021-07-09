@@ -107,15 +107,11 @@
 
 }
 
-.hidden-mobile-span{
-display: none;
-}
+
 
 
 @media (min-width: $mq-small) {
-    .hidden-mobile-span{
-display: inline;
-}
+
 .filter-btn-right {
     justify-content: flex-end;
 }

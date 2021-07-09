@@ -1,12 +1,16 @@
-import React from 'react';
-import { NewFiltersBtns } from '.';
+import React from "react";
+import { NewFiltersBtns, Empty } from ".";
+import { useInvoiceContext } from "../context/invoice_context";
 
 const Main = () => {
-    return (
-        <main className="main">
-            <NewFiltersBtns/>
-        </main>
-    )
-}
+  const { total_invoices } = useInvoiceContext()!;
 
-export default Main
+  return (
+    <main className="main">
+      <NewFiltersBtns />
+      {total_invoices ? <h2>ooki</h2> : <Empty />}
+    </main>
+  );
+};
+
+export default Main;
