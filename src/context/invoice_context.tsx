@@ -3,28 +3,28 @@ import reducer from "../reducers/invoice_reducer";
 
 export interface Invoice {
   id: string;
-  createdAt: String;
-  paymentDue: String;
-  description: String;
+  createdAt: string;
+  paymentDue: string;
+  description: string;
   paymentTerms: number;
-  clientName: String;
-  clientEmail: String;
-  status: String;
+  clientName: string;
+  clientEmail: string;
+  status: string;
   senderAddress: {
-    street: String;
-    city: String;
-    postCode: String;
-    country: String;
+    street: string;
+    city: string;
+    postCode: string;
+    country: string;
   };
   clientAddress: {
-    street: String;
-    city: String;
-    postCode: String;
-    country: String;
+    street: string;
+    city: string;
+    postCode: string;
+    country: string;
   };
   items: [
     {
-      name: String;
+      name: string;
       quantity: number;
       price: number;
       total: number;
@@ -81,7 +81,7 @@ const initialState: State = {
     {
       id: "RT3080",
       createdAt: "2021-08-18",
-      paymentDue: "2021-08-19",
+      paymentDue: "2021-08-02",
       description: "Re-branding",
       paymentTerms: 1,
       clientName: "pino2",

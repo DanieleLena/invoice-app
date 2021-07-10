@@ -60,8 +60,9 @@
     font-size: 1.2rem;
   }
 }
+
 .right-arrow {
-  margin-left: 2rem;
+  display: none;
 }
 .status-circle {
   width: 8px;
@@ -134,4 +135,8 @@
   .import {
     grid-column: 4/5;
   }
+  .right-arrow {
+    display: inline;
+  margin-left: 2rem;
+}
 }

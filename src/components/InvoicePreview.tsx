@@ -1,13 +1,12 @@
 import React from "react";
 import { isTemplateTail } from "typescript";
 import { Invoice } from "../context/invoice_context";
-import {formatPrice} from "../helpers"
+import {formatPrice,formatDate} from "../helpers"
 
 
-const InvoicePreview: React.FC< {item: Invoice}> = ({item}) => {
-   console.log("component");
-   console.log(item);
-   const {id,paymentDue,clientName, status,total} = item;
+const InvoicePreview: React.FC<{item: Invoice}> = ({item}) => {
+
+const {id,paymentDue,clientName, status,total} = item;
    
    
   return (
@@ -17,8 +16,7 @@ const InvoicePreview: React.FC< {item: Invoice}> = ({item}) => {
         {id}
       </h3>
       <p className="name">{clientName}</p>
-
-      <p className="date">{paymentDue}</p>
+      <p className="date">Due {formatDate(paymentDue)}</p>
       <h2 className="import">{formatPrice(total)}</h2>
       <div className={`status-cell ${status}`}>
         <div className="status">
