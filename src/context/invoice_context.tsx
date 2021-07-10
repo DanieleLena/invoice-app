@@ -43,6 +43,7 @@ interface State {
   invoices: Array<Invoice>;
   total_invoices: number;
   filter: Filter;
+  single_invoice: Object
 }
 const initialState: State = {
   isDark: false,
@@ -79,7 +80,7 @@ const initialState: State = {
       total: 1800.9,
     },
     {
-      id: "RT3080",
+      id: "HH3080",
       createdAt: "2021-08-18",
       paymentDue: "2021-08-02",
       description: "Re-branding",
@@ -110,7 +111,7 @@ const initialState: State = {
       total: 1800.9,
     },
     {
-      id: "RT3080",
+      id: "ZZ3080",
       createdAt: "2021-08-18",
       paymentDue: "2021-08-19",
       description: "Re-branding",
@@ -147,6 +148,7 @@ const initialState: State = {
     pending: true,
     paid: true,
   },
+  single_invoice: {} ,
 };
 
 const InvoiceContext = React.createContext(null);
@@ -161,6 +163,9 @@ export const InvoiceProvider: React.FC = ({ children }) => {
     let name = e.currentTarget.name;
     dispatch({ type: "UPDATE_FILTER", payload: name });
   };
+  const   getSingleInvoice = (id:string) => {
+    dispatch({type: "GET_SINGLE_INVOICE", payload: id})
+  }
 
   return (
     <InvoiceContext.Provider
@@ -168,6 +173,7 @@ export const InvoiceProvider: React.FC = ({ children }) => {
         ...state,
         toggleTheme,
         updateFilter,
+        getSingleInvoice
       }}
     >
       {children}

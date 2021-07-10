@@ -1,0 +1,87 @@
+
+
+//==============================================================
+$bottom-margin-invoice: 4rem;
+//==============================================================
+
+
+.invoiceDetails-section {
+  width: 90%;
+  margin: auto;
+}
+.invoiceDetails-btns {
+  width: 100vw;
+  height: 91px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: $white;
+  -webkit-box-shadow: 0px -1px 15px 4px rgba(0, 0, 0, 0.87);
+  box-shadow: 0px -1px 15px 4px rgba(0, 0, 0, 0.089);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.go-back-container {
+  height: 90px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  cursor: pointer;
+
+  img {
+    width: 10px;
+    margin-right: 1.5rem;
+  }
+  p {
+    color: $gray;
+  }
+}
+.status-container {
+  height: 91px;
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $white;
+
+  margin-bottom: 2rem;
+}
+
+.invoiceDetails-main {
+    background-color: $white;
+      min-height: 80vh;
+
+    border-radius: 8px;
+      padding: 1rem 1.5rem;
+}
+.id-job,.sender-address-container {
+    width: 100%;
+    margin-bottom: $bottom-margin-invoice;
+}
+.dates-container {
+    width: 50%;
+    float: left;
+    margin-bottom: $bottom-margin-invoice;
+}
+.invoice-date{
+    margin-bottom: $bottom-margin-invoice;
+    p{
+        margin-bottom: .5rem;
+    }
+}
+.client-address-container{
+    width: 50%;
+    float: right;
+        margin-bottom: $bottom-margin-invoice;
+
+}
+.email-container{
+    width: 100%;
+    float: left;
+    text-align: start;
+}

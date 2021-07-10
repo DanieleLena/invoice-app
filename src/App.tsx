@@ -1,6 +1,8 @@
 import React from 'react';
 import './sass/main.scss';
-import {NavBar,NewFiltersBtns,Main} from "./components"
+import {NavBar,NewFiltersBtns,Main,InvoiceDetails} from "./components"
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+
 
 function App() {
 
@@ -8,10 +10,15 @@ function App() {
 
 
   return (
-    <>
-    <NavBar/>
-    <Main/>
-    </>
+    <Router>
+     
+        <NavBar />
+        <Route exact path="/">
+          <Main />
+        </Route>
+        <Route exact path="/:id" children={<InvoiceDetails />}></Route>
+      
+    </Router>
   );
 }
 

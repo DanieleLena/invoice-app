@@ -1,3 +1,5 @@
+import { Invoice } from "../context/invoice_context";
+
 const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
   const { type, payload } = action;
 
@@ -14,6 +16,13 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
       let newvalue = !state.filter[payload];
 
       return { ...state, filter: { ...state.filter, [payload]: newvalue } };
+    }
+    case "GET_SINGLE_INVOICE": {
+      let { id } = payload;
+      let singleInvoice = state.invoices.find((item: Invoice) => {
+        return item.id === id;
+      });
+      return { ...state, single_invoice: singleInvoice };
     }
   }
 

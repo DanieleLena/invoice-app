@@ -17,28 +17,28 @@ h1 {
   font-weight: 700;
   line-height: 3.6rem;
   letter-spacing: -0.1rem;
-  margin-bottom: 3rem;
+  
 }
 h2 {
   font-size: 2rem;
   font-weight: 700;
   line-height: 2, 2rem;
   letter-spacing: -0.063rem;
-  margin-bottom: 2.5rem;
+  
 }
 h3 {
   font-size: 1.6rem;
   font-weight: 700;
   line-height: 2.4rem;
   letter-spacing: -0.08rem;
-  margin-bottom: 2rem;
+  
 }
 h4 {
   font-size: 1.2rem;
   font-weight: 700;
   line-height: 1.5rem;
   letter-spacing: -0.025rem;
-  margin-bottom: 1.5rem;
+ 
 }
 
 p {
@@ -46,7 +46,11 @@ p {
   font-weight: 500;
   line-height: 1.5rem;
   letter-spacing: -0.025rem;
-  margin-bottom: 1.5rem;
+  
+}
+.p-gray {
+  color: $gray;
+  line-height: 1.8rem;
 }
 
 .p-little {
@@ -54,7 +58,7 @@ p {
   font-weight: 500;
   line-height: 1.8rem;
   letter-spacing: -0.023rem;
-  margin-bottom: 1.5rem;
+  
 }
 
 .bold-span{
