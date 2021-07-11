@@ -6,15 +6,19 @@ const NewFiltersBtns = () => {
     invoices,
     total_invoices,
     updateFilter,
+    filter, // to check
     filter: { draft, pending, paid },
     getTotalInvoices,
+    getFilteredInvoices
   } = useInvoiceContext()!;
 
   useEffect(() => {
     getTotalInvoices();
-   
   }, [invoices])
 
+  useEffect(() => {
+   getFilteredInvoices()
+  }, [filter])
   return (
     <div className="filters-btn-container">
       <div className="filter-btn-left">

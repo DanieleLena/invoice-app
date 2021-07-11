@@ -14,8 +14,25 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
     }
     case "UPDATE_FILTER": {
       let newvalue = !state.filter[payload];
-
       return { ...state, filter: { ...state.filter, [payload]: newvalue } };
+    }
+    case "GET_FILTERED_INVOICES": {
+      const totalInvoices = state.invoices;
+      const { paid, pending, draft } = state.filter;
+      let paidTemp = "";
+      let draftTemp = "";
+      let pendingTemp = "";
+      let filteredInvoices = totalInvoices.filter((invoice: Invoice) => {
+        if (paid) paidTemp = "paid";
+        if (pending) pendingTemp = "pending";
+        if (draft) draftTemp = "draft";
+        return (
+          invoice.status === paidTemp ||
+          invoice.status === pendingTemp ||
+          invoice.status === draftTemp
+        );
+      });
+      return { ...state, filtered_invoices: filteredInvoices };
     }
     case "GET_SINGLE_INVOICE": {
       let { id } = payload;
@@ -25,7 +42,7 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
       return { ...state, single_invoice: singleInvoice };
     }
     case "GET_TOTAL_INVOICES": {
-      let totalInvoices = state.invoices.length;      
+      let totalInvoices = state.invoices.length;
       return { ...state, total_invoices: totalInvoices };
     }
   }

@@ -9,7 +9,7 @@ export interface Invoice {
   paymentTerms: number;
   clientName: string;
   clientEmail: string;
-  status: string;
+  status: "paid" | "draft" | "pending";
   senderAddress: {
     street: string;
     city: string;
@@ -41,9 +41,10 @@ interface Filter {
 interface State {
   isDark: boolean;
   invoices: Array<Invoice>;
+  filtered_invoices: Array<Invoice>
   total_invoices: number;
   filter: Filter;
-  single_invoice: Object
+  single_invoice: Object;
 }
 const initialState: State = {
   isDark: false,
@@ -142,14 +143,21 @@ const initialState: State = {
       total: 1800.9,
     },
   ],
-  total_invoices: 1, // TO CHANGE
+  filtered_invoices: [],
+  total_invoices: 0,
   filter: {
     draft: true,
     pending: true,
     paid: true,
   },
-  single_invoice: {} ,
+  single_invoice: {},
 };
+
+
+
+// let prova:FilterType;
+
+
 
 const InvoiceContext = React.createContext(null);
 
@@ -163,12 +171,16 @@ export const InvoiceProvider: React.FC = ({ children }) => {
     let name = e.currentTarget.name;
     dispatch({ type: "UPDATE_FILTER", payload: name });
   };
-  const   getSingleInvoice = (id:string) => {
-    dispatch({type: "GET_SINGLE_INVOICE", payload: id})
+  const getFilteredInvoices = () => {
+    dispatch({type:"GET_FILTERED_INVOICES"});
   }
+  const getSingleInvoice = (id: string) => {
+    dispatch({ type: "GET_SINGLE_INVOICE", payload: id });
+  };
   const getTotalInvoices = () => {
-    dispatch({type: "GET_TOTAL_INVOICES"})
-  }
+    dispatch({ type: "GET_TOTAL_INVOICES" });
+  };
+  
 
   return (
     <InvoiceContext.Provider
@@ -177,7 +189,8 @@ export const InvoiceProvider: React.FC = ({ children }) => {
         toggleTheme,
         updateFilter,
         getSingleInvoice,
-        getTotalInvoices
+        getTotalInvoices,
+        getFilteredInvoices
       }}
     >
       {children}

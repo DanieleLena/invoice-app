@@ -4,7 +4,7 @@ import { useInvoiceContext } from "../context/invoice_context";
 import {Invoice} from "../context/invoice_context"
 
 const Main = () => {
-  const { total_invoices,invoices} = useInvoiceContext()!;
+  const {total_invoices,invoices,filtered_invoices} = useInvoiceContext()!;
 
 
 
@@ -12,7 +12,7 @@ const Main = () => {
     <main className="main">
       <NewFiltersBtns />
       {total_invoices ? (
-        invoices.map((item: Invoice, index: number): JSX.Element => {
+        filtered_invoices.map((item: Invoice, index: number): JSX.Element => {
           return <InvoicePreview key={index} item={item}  />;
         })
       ) : (
