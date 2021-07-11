@@ -24,6 +24,10 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
       });
       return { ...state, single_invoice: singleInvoice };
     }
+    case "GET_TOTAL_INVOICES": {
+      let totalInvoices = state.invoices.length;      
+      return { ...state, total_invoices: totalInvoices };
+    }
   }
 
   throw new Error(`No Matching "${action.type}" - action type`);

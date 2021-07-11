@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useInvoiceContext } from "../context/invoice_context";
 
 const NewFiltersBtns = () => {
   const {
+    invoices,
     total_invoices,
     updateFilter,
     filter: { draft, pending, paid },
+    getTotalInvoices,
   } = useInvoiceContext()!;
+
+  useEffect(() => {
+    getTotalInvoices();
+   
+  }, [invoices])
 
   return (
     <div className="filters-btn-container">

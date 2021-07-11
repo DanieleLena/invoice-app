@@ -166,6 +166,9 @@ export const InvoiceProvider: React.FC = ({ children }) => {
   const   getSingleInvoice = (id:string) => {
     dispatch({type: "GET_SINGLE_INVOICE", payload: id})
   }
+  const getTotalInvoices = () => {
+    dispatch({type: "GET_TOTAL_INVOICES"})
+  }
 
   return (
     <InvoiceContext.Provider
@@ -173,7 +176,8 @@ export const InvoiceProvider: React.FC = ({ children }) => {
         ...state,
         toggleTheme,
         updateFilter,
-        getSingleInvoice
+        getSingleInvoice,
+        getTotalInvoices
       }}
     >
       {children}
