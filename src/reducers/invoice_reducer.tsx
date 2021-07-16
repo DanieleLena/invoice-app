@@ -25,7 +25,7 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
       let filteredInvoices = totalInvoices.filter((invoice: Invoice) => {
         if (paid) paidTemp = "paid";
         if (pending) pendingTemp = "pending";
-        if (draft) draftTemp = "draft";
+        if (draft) draftTemp = "draft"  ;
         return (
           invoice.status === paidTemp ||
           invoice.status === pendingTemp ||

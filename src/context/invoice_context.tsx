@@ -154,11 +154,6 @@ const initialState: State = {
 };
 
 
-
-// let prova:FilterType;
-
-
-
 const InvoiceContext = React.createContext(null);
 
 export const InvoiceProvider: React.FC = ({ children }) => {

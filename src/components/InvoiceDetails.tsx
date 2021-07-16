@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { useInvoiceContext } from "../context/invoice_context";
-import { formatDate } from "../helpers";
+import { formatDate, formatPrice } from "../helpers";
 
 const InvoiceDetails = () => {
   let id = useParams();
@@ -50,11 +50,6 @@ const InvoiceDetails = () => {
 
   return (
     <section className="invoiceDetails-section">
-      <div className="invoiceDetails-btns">
-        <button className="btn secondary-btn">Edit</button>
-        <button className="btn delete">Delete</button>
-        <button className="btn confirm">Mark as Pending</button>
-      </div>
       <Link to="/">
         <div className="go-back-container">
           <img src="/assets/icon-arrow-left.svg" alt=""></img>
@@ -70,6 +65,11 @@ const InvoiceDetails = () => {
           </div>
           <img src="/assets/icon-arrow-right.svg" className="right-arrow"></img>
         </div>
+      </div>
+      <div className="invoiceDetails-btns">
+        <button className="btn secondary-btn">Edit</button>
+        <button className="btn delete">Delete</button>
+        <button className="btn confirm">Mark as Pending</button>
       </div>
 
       <div className="invoiceDetails-main">
@@ -103,8 +103,58 @@ const InvoiceDetails = () => {
             <p className="p-gray">{countryClient}</p>
           </div>
           <div className="email-container">
-              <p className="p-gray">Sent to</p>
-              <h2>{clientEmail}</h2>
+            <p className="p-gray">Sent to</p>
+            <h2>{clientEmail}</h2>
+          </div>
+        </div>
+        <div className="invoiceDetails-items-container">
+          <div className="invoiceDetails-item">
+            <div className="item-name">
+              <p className="p-gray">Item</p>
+            </div>
+            <div className="item-quantity">
+              <p className="p-gray">QTY.</p>
+            </div>
+            <div className="item-price">
+              <p className="p-gray">Price</p>
+            </div>
+            <div className="item-total">
+              <p className="p-gray">Total</p>
+            </div>
+          </div>
+          <div className="invoiceDetails-item">
+            <div className="item-name">
+              <h4>Banner Design</h4>
+            </div>
+            <div className="item-quantity">
+              <h4>1x</h4>
+            </div>
+            <div className="item-price">
+              <h4>{formatPrice(35)}</h4>
+            </div>
+            <div className="item-total">
+              <h4>{formatPrice(350)}</h4>
+            </div>
+          </div>
+
+          <div className="invoiceDetails-item">
+            <div className="item-name">
+              <h4>Banner Design</h4>
+            </div>
+            <div className="item-quantity">
+              <h4>1x</h4>
+            </div>
+            <div className="item-price">
+              <h4>{formatPrice(35)}</h4>
+            </div>
+            <div className="item-total">
+              <h4>{formatPrice(350)}</h4>
+            </div>
+          </div>
+
+          <div className="invoiceDetails-grandTotal">
+            <p>Grand Total</p>
+            <h2>556,30$</h2>
           </div>
         </div>
       </div>

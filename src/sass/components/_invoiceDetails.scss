@@ -1,13 +1,11 @@
-
-
 //==============================================================
 $bottom-margin-invoice: 4rem;
 //==============================================================
 
-
 .invoiceDetails-section {
   width: 90%;
   margin: auto;
+  max-width: $max-width;
 }
 .invoiceDetails-btns {
   width: 100vw;
@@ -53,35 +51,159 @@ $bottom-margin-invoice: 4rem;
 }
 
 .invoiceDetails-main {
-    background-color: $white;
-      min-height: 80vh;
+  background-color: $white;
+  min-height: 80vh;
 
-    border-radius: 8px;
-      padding: 1rem 1.5rem;
+  border-radius: 8px;
+  // padding: 1.5rem 1.5rem;
+  padding: 1.5rem;
 }
-.id-job,.sender-address-container {
-    width: 100%;
-    margin-bottom: $bottom-margin-invoice;
+.invoiceDetails-text {
+  margin-bottom: 5rem;
+}
+.id-job,
+.sender-address-container {
+  width: 100%;
+  margin-bottom: $bottom-margin-invoice;
 }
 .dates-container {
-    width: 50%;
-    float: left;
-    margin-bottom: $bottom-margin-invoice;
+  width: 50%;
+  float: left;
+  margin-bottom: $bottom-margin-invoice;
 }
-.invoice-date{
-    margin-bottom: $bottom-margin-invoice;
-    p{
-        margin-bottom: .5rem;
-    }
+.invoice-date {
+  margin-bottom: $bottom-margin-invoice;
+  p {
+    margin-bottom: 0.5rem;
+  }
 }
-.client-address-container{
-    width: 50%;
-    float: right;
-        margin-bottom: $bottom-margin-invoice;
+.client-address-container {
+  width: 50%;
+  // float: right;
+  margin-bottom: $bottom-margin-invoice;
+}
+.email-container {
+  width: 100%;
+  // float: left;
+  text-align: start;
+}
 
+.invoiceDetails-items-container {
+  width: 95%;
+  margin:0 auto;
+
+  background-color: $light-bg;
+  border-radius: 8px;
+  margin-bottom: 10rem; // ============================= !!!!!!!!!!!!!!!!!!!!!!!!!!
 }
-.email-container{
+.invoiceDetails-item {
+  display: grid;
+  padding: 2rem;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  margin-bottom: 2rem;
+}
+.item-name {
+  margin-bottom: 1rem;
+}
+.item-quantity,
+.item-price {
+  grid-row: 2/3;
+  grid-column: 1/2;
+  color: $purple;
+}
+.item-price {
+  width: 100%;
+  padding-right: 5rem;
+  display: flex;
+  justify-content: flex-end;
+}
+.item-total {
+  grid-row: 1/3;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  h4 {
+    font-size: 1.6rem;
+  }
+}
+
+.invoiceDetails-grandTotal {
+  width: 100%;
+  height: 80px;
+  background-color: $purple-navBar;
+  color: $white;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+@media (min-width: $mq-small) {
+  .invoiceDetails-btns {
+    width: 50%;
+    position: static;
+    transform: translateX(100%) translateY(-122%);
+    box-shadow: none;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+  .invoiceDetails-main {
+    min-height: 0;
+    padding: 3rem;
+  }
+  .status-container {
+    width: 50%;
+    justify-content: flex-start;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+
+    p {
+      margin-right: 2rem;
+    }
+  }
+  .invoiceDetails-main {
+    transform: translateY(-91px); //invoiceDetails-btns height
+  }
+
+  .invoiceDetails-text {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 100px 150px;
+    
+  }
+  .id-job {
+    grid-column: 1/3;
+  }
+  .sender-address-container {
+    grid-column: 3/5;
+    text-align: end;
+  }
+  .dates-container {
     width: 100%;
-    float: left;
-    text-align: start;
+  }
+  .email-container {
+    grid-column: 3/5;
+  }
+  .invoiceDetails-items-container {
+    margin-bottom: 0;
+  }
+
+  .invoiceDetails-item {
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    grid-template-rows:0;
+  }
+  .item-quantity {
+    grid-column: 2/3;
+  }
+  .item-name {
+    grid-column: 1/2;
+  }
+  .item-price {
+    grid-column: 3/4;
+  }
+  .item-total {
+    grid-column: 4/5;
+  }
 }

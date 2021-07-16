@@ -14,7 +14,7 @@
 body {
   background-color: $light-bg;
 }
-
+//DARK THEME SETTIGS ======================================================
 body.dark-theme {
   background-color: $dark-bg;
 
@@ -37,7 +37,46 @@ body.dark-theme {
     background-color: $purple-dark;
     color: white !important;
   }
+  .draft {
+    .status-circle {
+      background-color: #979797;
+    }
+    .status {
+      background-color: #97979733;
+      h2 {
+        color: rgba(255, 255, 255, 0.788);
+      }
+    }
+  }
+  .status-container {
+    p{
+      color: white;
+    }
+    background-color: $purple-dark;
+  }
+.go-back-container {
+  h4{
+    color: $white;
+  }
+} 
+  .invoiceDetails-btns,
+  .invoiceDetails-main {
+    background-color: $purple-dark;
+    h2,
+    h4,
+    h3,
+    p {
+      color: $white;
+    }
+  }
+  .invoiceDetails-items-container {
+    background-color: #252945;
+  }
+  .invoiceDetails-grandTotal {
+    background-color: #0c0e16;
+  }
 }
+//DARK THEME SETTIGS ======================================================
 
 .main {
   max-width: $max-width;
@@ -116,7 +155,7 @@ body.dark-theme {
   }
 }
 .pending {
-    .status-circle {
+  .status-circle {
     background-color: $yellow;
   }
   .status {
@@ -127,7 +166,7 @@ body.dark-theme {
   }
 }
 .draft {
-    .status-circle {
+  .status-circle {
     background-color: $purple-dark;
   }
   .status {
