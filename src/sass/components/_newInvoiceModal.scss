@@ -1,0 +1,25 @@
+
+.modal-bg {
+    position: absolute;
+    top: 72px; //navbar height
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.247);
+}
+.newInvoice-modal{
+    width: 100%;
+    height: 100vh;
+    background-color: $white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding:  0 2rem;
+    label {
+        display: block;
+    }
+}
+
+//mq
+//    left: $navBar-vertical-width;
+

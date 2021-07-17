@@ -22,22 +22,7 @@ $bottom-margin-invoice: 4rem;
   justify-content: space-around;
 }
 
-.go-back-container {
-  height: 90px;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  cursor: pointer;
 
-  img {
-    width: 10px;
-    margin-right: 1.5rem;
-  }
-  p {
-    color: $gray;
-  }
-}
 .status-container {
   height: 91px;
   border-radius: 8px;

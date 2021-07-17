@@ -1,3 +1,4 @@
+// import { stat } from "fs";
 import { Invoice } from "../context/invoice_context";
 
 const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
@@ -44,6 +45,9 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
     case "GET_TOTAL_INVOICES": {
       let totalInvoices = state.invoices.length;
       return { ...state, total_invoices: totalInvoices };
+    }
+    case "TOGGLE_NEW_INVOICE_MODAL": {
+      return { ...state, isNewInvoiceOpen: !state.isNewInvoiceOpen };
     }
   }
 

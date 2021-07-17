@@ -40,6 +40,7 @@ interface Filter {
 
 interface State {
   isDark: boolean;
+  isNewInvoiceOpen: boolean,
   invoices: Array<Invoice>;
   filtered_invoices: Array<Invoice>
   total_invoices: number;
@@ -48,6 +49,7 @@ interface State {
 }
 const initialState: State = {
   isDark: false,
+  isNewInvoiceOpen: false,
   invoices: [
     {
       id: "RT3080",
@@ -175,6 +177,9 @@ export const InvoiceProvider: React.FC = ({ children }) => {
   const getTotalInvoices = () => {
     dispatch({ type: "GET_TOTAL_INVOICES" });
   };
+   const toggleNewInvoiceModal = () => {
+     dispatch({type: "TOGGLE_NEW_INVOICE_MODAL"})
+   };
   
 
   return (
@@ -185,7 +190,8 @@ export const InvoiceProvider: React.FC = ({ children }) => {
         updateFilter,
         getSingleInvoice,
         getTotalInvoices,
-        getFilteredInvoices
+        getFilteredInvoices,
+        toggleNewInvoiceModal,
       }}
     >
       {children}

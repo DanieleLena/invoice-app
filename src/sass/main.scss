@@ -10,6 +10,8 @@
 @import "components/empty";
 @import "components/invoicePreview";
 @import "components/invoiceDetails";
+//modals
+@import "components/newInvoiceModal";
 
 body {
   background-color: $light-bg;
@@ -113,6 +115,33 @@ body.dark-theme {
   background-color: $light-bg;
   color: $gray;
 }
+.purple-btn{
+background-color: $purple;
+  color: $white;
+}
+.dark-btn{
+  background-color: $purple-navBar;
+  color: $gray;
+
+}
+// GO BACK BTN ============================================================
+.go-back-container {
+  height: 90px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  cursor: pointer;
+  z-index: 999;
+
+  img {
+    width: 10px;
+    margin-right: 1.5rem;
+  }
+  p {
+    color: $gray;
+  }
+}
 
 //STATUS TAGS ===================================================================
 .status-cell {
@@ -134,9 +163,7 @@ body.dark-theme {
   }
 }
 
-.right-arrow {
-  display: none;
-}
+
 .status-circle {
   width: 8px;
   height: 8px;

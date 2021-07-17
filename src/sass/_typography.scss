@@ -1,7 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Spartan");
 
-
-
 /* important ======================================================= */
 html {
   font-size: 62.5%;
@@ -17,28 +15,24 @@ h1 {
   font-weight: 700;
   line-height: 3.6rem;
   letter-spacing: -0.1rem;
-  
 }
 h2 {
   font-size: 2rem;
   font-weight: 700;
   line-height: 2, 2rem;
   letter-spacing: -0.063rem;
-  
 }
 h3 {
   font-size: 1.6rem;
   font-weight: 700;
   line-height: 2.4rem;
   letter-spacing: -0.08rem;
-  
 }
 h4 {
   font-size: 1.2rem;
   font-weight: 700;
   line-height: 1.5rem;
   letter-spacing: -0.025rem;
- 
 }
 
 p {
@@ -46,9 +40,11 @@ p {
   font-weight: 500;
   line-height: 1.5rem;
   letter-spacing: -0.025rem;
-  
 }
 .p-gray {
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: -0.025rem;
   color: $gray;
   line-height: 1.8rem;
 }
@@ -58,20 +54,19 @@ p {
   font-weight: 500;
   line-height: 1.8rem;
   letter-spacing: -0.023rem;
-  
 }
 
-.bold-span{
+.bold-span {
   font-weight: 700;
 }
 
 //Hide some word in mobile view
 
-.hidden-mobile-span{
-display: none;
+.hidden-mobile-span {
+  display: none;
 }
 @media (min-width: $mq-small) {
-    .hidden-mobile-span{
-display: inline;
-}
+  .hidden-mobile-span {
+    display: inline;
+  }
 }

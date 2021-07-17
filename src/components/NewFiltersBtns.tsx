@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useInvoiceContext } from "../context/invoice_context";
 
 const NewFiltersBtns = () => {
@@ -9,8 +9,10 @@ const NewFiltersBtns = () => {
     filter, // to check
     filter: { draft, pending, paid },
     getTotalInvoices,
-    getFilteredInvoices
+    getFilteredInvoices,
+    toggleNewInvoiceModal,
   } = useInvoiceContext()!;
+
 
   useEffect(() => {
     getTotalInvoices();
@@ -74,7 +76,7 @@ const NewFiltersBtns = () => {
             </div>
           </div>
         </div>
-        <div className="new-btn-container">
+        <div className="new-btn-container" onClick={toggleNewInvoiceModal}>
           <div className="plus-container">
             <img src="/assets/icon-plus.svg"></img>
           </div>

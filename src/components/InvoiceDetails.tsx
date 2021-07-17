@@ -63,7 +63,7 @@ const InvoiceDetails = () => {
             <div className="status-circle"></div>
             <h2>{status}</h2>
           </div>
-          <img src="/assets/icon-arrow-right.svg" className="right-arrow"></img>
+          
         </div>
       </div>
       <div className="invoiceDetails-btns">

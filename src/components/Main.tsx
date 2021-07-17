@@ -1,16 +1,18 @@
 import React from "react";
-import { NewFiltersBtns, Empty,InvoicePreview } from ".";
+import { NewFiltersBtns, Empty,InvoicePreview,NewInvoiceModal } from ".";
 import { useInvoiceContext } from "../context/invoice_context";
 import {Invoice} from "../context/invoice_context"
 
 const Main = () => {
-  const {total_invoices,invoices,filtered_invoices} = useInvoiceContext()!;
+  const { total_invoices, invoices, filtered_invoices, isNewInvoiceOpen } =
+    useInvoiceContext()!;
 
 
 
   return (
     <main className="main">
       <NewFiltersBtns />
+      {isNewInvoiceOpen && <NewInvoiceModal/>}
       {total_invoices ? (
         filtered_invoices.map((item: Invoice, index: number): JSX.Element => {
           return <InvoicePreview key={index} item={item}  />;
