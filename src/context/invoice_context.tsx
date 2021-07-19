@@ -49,7 +49,7 @@ interface State {
 }
 const initialState: State = {
   isDark: false,
-  isNewInvoiceOpen: false,
+  isNewInvoiceOpen: true, // TO  CHANGEEEEE
   invoices: [
     {
       id: "RT3080",

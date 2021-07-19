@@ -9,7 +9,7 @@
 }
 .newInvoice-modal{
     width: 100%;
-    height: 100vh;
+    // height: 100vh;
     background-color: $white;
     position: absolute;
     top: 0;
@@ -18,7 +18,34 @@
     label {
         display: block;
     }
+    input,select {
+        width: 100%;
+        height: 48px;
+        border: 1px solid;
+        border-color: #DFE3FA;
+        box-shadow: none;
+        margin-bottom: 2rem;
+    }
+    h4 {
+color: $purple;
+margin-bottom: 1rem;
+    }
 }
+.city-postcode-country{
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+
+}
+.form-line {
+    width: 100%;
+}
+.country{
+    // width: 200%;
+    grid-column: 1/3;
+}
+
 
 //mq
 //    left: $navBar-vertical-width;

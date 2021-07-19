@@ -14,4 +14,17 @@ export const formatDate = (date: string) => {
   return formattedData;
 };
 
+export const createId = () => {
+  let letters = Math.random()
+    .toString(36)
+    .replace(/[^a-z]+/g, "")
+    .substr(0, 2)
+    .toUpperCase();
 
+  var numbers = Math.floor(1000 + Math.random() * 9000);
+
+  let id =letters + numbers;
+  return id;
+};
+
+createId();

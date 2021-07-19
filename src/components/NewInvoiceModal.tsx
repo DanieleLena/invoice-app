@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useInvoiceContext } from "../context/invoice_context";
 import { Invoice } from "../context/invoice_context";
+import { createId } from "../helpers";
 
 const NewInvoiceModal = () => {
   const { toggleNewInvoiceModal, isNewInvoiceOpen, handleInvoiceForm } =
@@ -56,15 +57,17 @@ const NewInvoiceModal = () => {
     },
     [isNewInvoiceOpen]
   );
-
-  // Close the modal when press 'Esc' ================================
-
   useEffect(() => {
     document.addEventListener("keydown", keyEsc);
     return () => document.removeEventListener("keydown", keyEsc);
   }, [keyEsc]);
 
-  // prova !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //CREATES THE INVOICE ID ===========================================
+  useEffect(() => {
+    let generateId = createId();
+    setResult({ ...result, id: generateId });
+  }, []);
+
 
   const handleOnChange = (e: any) => {
     if (e.target.name.includes("sender")) {
@@ -126,11 +129,8 @@ const NewInvoiceModal = () => {
     } else {
       setResult({ ...result, [e.target.name]: e.target.value });
     }
-
-    console.log(result);
   };
 
-  // prova !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     handleInvoiceForm(result);
@@ -159,42 +159,47 @@ const NewInvoiceModal = () => {
             placeholder="19 Union Terrace"
           />
           {/* SENDER CITY,POSTCODE,COUNTRY ================== */}
+
           <div className="city-postcode-country">
-            <label htmlFor="senderCity" className="p-gray">
-              City
-            </label>
-            <input
-              className="input-short"
-              type="text"
-              name="senderCity"
-              value={result.senderAddress.city}
-              onChange={handleOnChange}
-              placeholder="London"
-            />
-
-            <label htmlFor="senderPostcode" className="p-gray">
-              Post Code
-            </label>
-            <input
-              className="input-short"
-              type="text"
-              name="senderPostcode"
-              value={result.senderAddress.postCode}
-              onChange={handleOnChange}
-              placeholder="E13EZ"
-            />
-
-            <label htmlFor="senderCoutry" className="p-gray">
-              Country
-            </label>
-            <input
-              className="input-short"
-              type="text"
-              name="senderCountry"
-              value={result.senderAddress.country}
-              onChange={handleOnChange}
-              placeholder="United Kingdom"
-            />
+            <div className="form-line">
+              <label htmlFor="senderCity" className="p-gray">
+                City
+              </label>
+              <input
+                className="input-short"
+                type="text"
+                name="senderCity"
+                value={result.senderAddress.city}
+                onChange={handleOnChange}
+                placeholder="London"
+              />
+            </div>
+            <div className="form-line">
+              <label htmlFor="senderPostcode" className="p-gray">
+                Post Code
+              </label>
+              <input
+                className="input-short"
+                type="text"
+                name="senderPostcode"
+                value={result.senderAddress.postCode}
+                onChange={handleOnChange}
+                placeholder="E13EZ"
+              />
+            </div>
+            <div className="form-line country">
+              <label htmlFor="senderCoutry" className="p-gray">
+                Country
+              </label>
+              <input
+                className="input-short"
+                type="text"
+                name="senderCountry"
+                value={result.senderAddress.country}
+                onChange={handleOnChange}
+                placeholder="United Kingdom"
+              />
+            </div>
           </div>
 
           {/* CLIENT ================== */}
@@ -240,41 +245,45 @@ const NewInvoiceModal = () => {
           />
           {/*CLIENT CITY,POSTCODE,COUNTRY ================== */}
           <div className="city-postcode-country">
-            <label htmlFor="receiverCity" className="p-gray">
-              City
-            </label>
-            <input
-              className="input-short"
-              type="text"
-              name="receiverCity"
-              value={result.clientAddress.city}
-              onChange={handleOnChange}
-              placeholder="Bradford"
-            />
-
-            <label htmlFor="receiverPostcode" className="p-gray">
-              Post Code
-            </label>
-            <input
-              className="input-short"
-              type="text"
-              name="receiverPostcode"
-              value={result.clientAddress.postCode}
-              onChange={handleOnChange}
-              placeholder="BD1 9PB"
-            />
-
-            <label htmlFor="receiverCountry" className="p-gray">
-              Country
-            </label>
-            <input
-              className="input-short"
-              type="text"
-              name="receiverCountry"
-              value={result.clientAddress.country}
-              onChange={handleOnChange}
-              placeholder="United Kingdom"
-            />
+            <div className="form-line">
+              <label htmlFor="receiverCity" className="p-gray">
+                City
+              </label>
+              <input
+                className="input-short"
+                type="text"
+                name="receiverCity"
+                value={result.clientAddress.city}
+                onChange={handleOnChange}
+                placeholder="Bradford"
+              />
+            </div>
+            <div className="form-line">
+              <label htmlFor="receiverPostcode" className="p-gray">
+                Post Code
+              </label>
+              <input
+                className="input-short"
+                type="text"
+                name="receiverPostcode"
+                value={result.clientAddress.postCode}
+                onChange={handleOnChange}
+                placeholder="BD1 9PB"
+              />
+            </div>
+            <div className="form-line country">
+              <label htmlFor="receiverCountry" className="p-gray">
+                Country
+              </label>
+              <input
+                className="input-short"
+                type="text"
+                name="receiverCountry"
+                value={result.clientAddress.country}
+                onChange={handleOnChange}
+                placeholder="United Kingdom"
+              />
+            </div>
           </div>
           {/* INVOICE DATE ================== */}
 
@@ -284,7 +293,8 @@ const NewInvoiceModal = () => {
           <input
             className="input-long"
             type="date"
-            name="invoiceDate"
+            name="paymentDue"
+            value={result.paymentDue}
             onChange={handleOnChange}
           />
 
@@ -293,14 +303,23 @@ const NewInvoiceModal = () => {
           <label htmlFor="paymentTerms" className="p-gray">
             Payment Terms
           </label>
-          <input
+          <select
+            id="paymentTerms"
+            name="paymentTerms"
+            onChange={handleOnChange}
+          >
+            <option value="1">Net 1 day</option>
+            <option value="7">Net 7 day</option>
+            <option value="14">Net 14 day</option>
+            <option value="30">Net 30 day</option>
+          </select>
+          {/* <input
             className="input-long"
             type="text"
             name="paymentTerms"
             value={result.paymentTerms}
-            onChange={handleOnChange}
             placeholder="net 30 Days"
-          />
+          /> */}
           {/* PAYMENT TERMS ================== */}
 
           <label htmlFor="projectDesciption" className="p-gray">
