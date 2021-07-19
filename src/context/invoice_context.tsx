@@ -180,6 +180,9 @@ export const InvoiceProvider: React.FC = ({ children }) => {
    const toggleNewInvoiceModal = () => {
      dispatch({type: "TOGGLE_NEW_INVOICE_MODAL"})
    };
+   const handleInvoiceForm = (result:Invoice) => {     
+     dispatch({type:"HANDLE_SUBMIT",payload:result});
+   };
   
 
   return (
@@ -192,6 +195,7 @@ export const InvoiceProvider: React.FC = ({ children }) => {
         getTotalInvoices,
         getFilteredInvoices,
         toggleNewInvoiceModal,
+        handleInvoiceForm,
       }}
     >
       {children}

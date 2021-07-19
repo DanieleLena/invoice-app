@@ -20,7 +20,7 @@ const NewFiltersBtns = () => {
 
   useEffect(() => {
    getFilteredInvoices()
-  }, [filter])
+  }, [filter,invoices])
   return (
     <div className="filters-btn-container">
       <div className="filter-btn-left">

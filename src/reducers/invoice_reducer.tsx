@@ -49,11 +49,17 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
     case "TOGGLE_NEW_INVOICE_MODAL": {
       return { ...state, isNewInvoiceOpen: !state.isNewInvoiceOpen };
     }
+    case "HANDLE_SUBMIT":{
+      console.log(action.payload);
+      
+      
+      return{...state,invoices:[...state.invoices,action.payload]}
+    }
   }
 
   throw new Error(`No Matching "${action.type}" - action type`);
 
-  return state;
+ 
 };
 
 export default invoice_reducer;
