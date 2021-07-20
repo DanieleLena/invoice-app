@@ -4,7 +4,7 @@ import { useInvoiceContext } from "../context/invoice_context";
 import {Invoice} from "../context/invoice_context"
 
 const Main = () => {
-  const { total_invoices, invoices, filtered_invoices, isNewInvoiceOpen } =
+  const { total_invoices, isInvoicesLoading, filtered_invoices, isNewInvoiceOpen } =
     useInvoiceContext()!;
 
 
@@ -12,10 +12,13 @@ const Main = () => {
   return (
     <main className="main">
       <NewFiltersBtns />
-      {isNewInvoiceOpen && <NewInvoiceModal/>}
-      {total_invoices ? (
+      {isNewInvoiceOpen && <NewInvoiceModal />}
+
+      {isInvoicesLoading && <h2>LOADING...</h2>}
+
+      { total_invoices ? (
         filtered_invoices.map((item: Invoice, index: number): JSX.Element => {
-          return <InvoicePreview key={index} item={item}  />;
+          return <InvoicePreview key={index} item={item} />;
         })
       ) : (
         <Empty />

@@ -42,6 +42,7 @@ interface Filter {
 
 interface State {
   isDark: boolean;
+  isInvoicesLoading: boolean;
   isNewInvoiceOpen: boolean,
   invoices: Array<Invoice>;
   filtered_invoices: Array<Invoice>
@@ -51,102 +52,9 @@ interface State {
 }
 const initialState: State = {
   isDark: false,
+  isInvoicesLoading: false,
   isNewInvoiceOpen: false, // TO  CHANGEEEEE
-  invoices: [
-    {
-      id: "RT3080",
-      createdAt: "2021-08-18",
-      paymentDue: "2021-08-19",
-      description: "Re-branding",
-      paymentTerms: 1,
-      clientName: "gino1",
-      clientEmail: "jensenh@mail.com",
-      status: "paid",
-      senderAddress: {
-        street: "19 Union Terrace",
-        city: "London",
-        postCode: "E1 3EZ",
-        country: "United Kingdom",
-      },
-      clientAddress: {
-        street: "106 Kendell Street",
-        city: "Sharrington",
-        postCode: "NR24 5WQ",
-        country: "United Kingdom",
-      },
-      items: [
-        {
-          name: "Brand Guidelines",
-          quantity: 1,
-          price: 1800.9,
-          total: 1800.9,
-        },
-      ],
-      total: 1800.9,
-    },
-    {
-      id: "HH3080",
-      createdAt: "2021-08-18",
-      paymentDue: "2021-08-02",
-      description: "Re-branding",
-      paymentTerms: 1,
-      clientName: "pino2",
-      clientEmail: "jensenh@mail.com",
-      status: "pending",
-      senderAddress: {
-        street: "19 Union Terrace",
-        city: "London",
-        postCode: "E1 3EZ",
-        country: "United Kingdom",
-      },
-      clientAddress: {
-        street: "106 Kendell Street",
-        city: "Sharrington",
-        postCode: "NR24 5WQ",
-        country: "United Kingdom",
-      },
-      items: [
-        {
-          name: "Brand Guidelines",
-          quantity: 1,
-          price: 1800.9,
-          total: 1800.9,
-        },
-      ],
-      total: 1800.9,
-    },
-    {
-      id: "ZZ3080",
-      createdAt: "2021-08-18",
-      paymentDue: "2021-08-19",
-      description: "Re-branding",
-      paymentTerms: 1,
-      clientName: "dino3",
-      clientEmail: "jensenh@mail.com",
-      status: "draft",
-      senderAddress: {
-        street: "19 Union Terrace",
-        city: "London",
-        postCode: "E1 3EZ",
-        country: "United Kingdom",
-      },
-      clientAddress: {
-        street: "106 Kendell Street",
-        city: "Sharrington",
-        postCode: "NR24 5WQ",
-        country: "United Kingdom",
-      },
-      items: [
-        {
-          name: "Brand Guidelines",
-          quantity: 1,
-          price: 1800.9,
-          total: 1800.9,
-        },
-      ],
-      total: 1800.9,
-    },
-  ],
+  invoices:[],
   filtered_invoices: [],
   total_invoices: 0,
   filter: {
@@ -168,8 +76,6 @@ export const InvoiceProvider: React.FC = ({ children }) => {
   };
   const fetchInvoices = async (url:string) => {
     dispatch({type: "FETCH_INVOICES_START"})
-         console.log(url);
-
      try {
        const response = await axios.get(url);
        const invoices = response.data;
@@ -180,6 +86,19 @@ export const InvoiceProvider: React.FC = ({ children }) => {
        dispatch({ type: "FETCH_INVOICES_ERROR" });
      }
   }
+  const addInvoice = async (invoice:any) => {
+    let addUrl = url + "add";
+    try {
+      const response = await axios.post(addUrl,invoice);
+      console.log(response);
+    }catch(error) {
+      console.log(error);
+    }
+  }
+  const deleteInvoice = () => {
+    dispatch({type: "DELETE_INVOICE"});
+  }
+  
   const updateFilter = (e: React.FormEvent<HTMLInputElement>) => {
     let name = e.currentTarget.name;
     dispatch({ type: "UPDATE_FILTER", payload: name });
@@ -201,7 +120,6 @@ export const InvoiceProvider: React.FC = ({ children }) => {
    };
   
    useEffect(() => {
-     
      fetchInvoices(url);
    }, [])
 
@@ -216,6 +134,8 @@ export const InvoiceProvider: React.FC = ({ children }) => {
         getFilteredInvoices,
         toggleNewInvoiceModal,
         handleInvoiceForm,
+        deleteInvoice,
+        addInvoice,
       }}
     >
       {children}

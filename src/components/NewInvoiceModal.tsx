@@ -4,7 +4,7 @@ import { Invoice } from "../context/invoice_context";
 import { createId } from "../helpers";
 
 const NewInvoiceModal = () => {
-  const { toggleNewInvoiceModal, isNewInvoiceOpen, handleInvoiceForm } =
+  const { toggleNewInvoiceModal, isNewInvoiceOpen, handleInvoiceForm ,addInvoice} =
     useInvoiceContext()!;
 
   const modalRef = useRef();
@@ -133,7 +133,8 @@ const NewInvoiceModal = () => {
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    handleInvoiceForm(result);
+    // handleInvoiceForm(result);
+    addInvoice(result)
     toggleNewInvoiceModal();
   };
 
@@ -347,3 +348,7 @@ const NewInvoiceModal = () => {
 };
 
 export default NewInvoiceModal;
+function addInvoice(result: Invoice) {
+  throw new Error("Function not implemented.");
+}
+

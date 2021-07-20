@@ -14,12 +14,12 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
       return { ...state, isDark: !state.isDark };
     }
     case "FETCH_INVOICES_START": {
-      return { ...state };
+      return { ...state, isInvoicesLoading: true };
     }
     case "FETCH_INVOICES_COMPLETED": {
       console.log(action.payload);
       
-      return { ...state };
+      return { ...state, isInvoicesLoading: false, invoices: action.payload };
     }
     case "FETCH_INVOICES_ERROR": {
       return { ...state };
