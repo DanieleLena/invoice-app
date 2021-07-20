@@ -2,7 +2,7 @@
 
 # dependencies
 backend/node_modules
-backend/.env
+
 /node_modules
 /.pnp
 .pnp.js
@@ -19,6 +19,7 @@ backend/.env
 .env.development.local
 .env.test.local
 .env.production.local
+**/.env
 
 
 npm-debug.log*
