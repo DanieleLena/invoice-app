@@ -1,5 +1,7 @@
+import axios from "axios";
 import React, { useContext, useEffect, useReducer, createContext } from "react";
 import reducer from "../reducers/invoice_reducer";
+import {invoices_url as url } from "../helpers";
 
 export interface Invoice {
   id: string;
@@ -49,7 +51,7 @@ interface State {
 }
 const initialState: State = {
   isDark: false,
-  isNewInvoiceOpen: true, // TO  CHANGEEEEE
+  isNewInvoiceOpen: false, // TO  CHANGEEEEE
   invoices: [
     {
       id: "RT3080",
@@ -164,6 +166,20 @@ export const InvoiceProvider: React.FC = ({ children }) => {
   const toggleTheme = () => {
     dispatch({ type: "TOGGLE_THEME" });
   };
+  const fetchInvoices = async (url:string) => {
+    dispatch({type: "FETCH_INVOICES_START"})
+         console.log(url);
+
+     try {
+       const response = await axios.get(url);
+       const invoices = response.data;
+       dispatch({ type: "FETCH_INVOICES_COMPLETED", payload: invoices });
+     } catch (error) {
+       console.log(error);
+       
+       dispatch({ type: "FETCH_INVOICES_ERROR" });
+     }
+  }
   const updateFilter = (e: React.FormEvent<HTMLInputElement>) => {
     let name = e.currentTarget.name;
     dispatch({ type: "UPDATE_FILTER", payload: name });
@@ -184,6 +200,10 @@ export const InvoiceProvider: React.FC = ({ children }) => {
      dispatch({type:"HANDLE_SUBMIT",payload:result});
    };
   
+   useEffect(() => {
+     
+     fetchInvoices(url);
+   }, [])
 
   return (
     <InvoiceContext.Provider

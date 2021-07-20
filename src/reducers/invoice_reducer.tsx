@@ -13,6 +13,17 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
 
       return { ...state, isDark: !state.isDark };
     }
+    case "FETCH_INVOICES_START": {
+      return { ...state };
+    }
+    case "FETCH_INVOICES_COMPLETED": {
+      console.log(action.payload);
+      
+      return { ...state };
+    }
+    case "FETCH_INVOICES_ERROR": {
+      return { ...state };
+    }
     case "UPDATE_FILTER": {
       let newvalue = !state.filter[payload];
       return { ...state, filter: { ...state.filter, [payload]: newvalue } };
@@ -26,7 +37,7 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
       let filteredInvoices = totalInvoices.filter((invoice: Invoice) => {
         if (paid) paidTemp = "paid";
         if (pending) pendingTemp = "pending";
-        if (draft) draftTemp = "draft"  ;
+        if (draft) draftTemp = "draft";
         return (
           invoice.status === paidTemp ||
           invoice.status === pendingTemp ||
@@ -49,11 +60,10 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
     case "TOGGLE_NEW_INVOICE_MODAL": {
       return { ...state, isNewInvoiceOpen: !state.isNewInvoiceOpen };
     }
-    case "HANDLE_SUBMIT":{
+    case "HANDLE_SUBMIT": {
       console.log(action.payload);
-      
-      
-      return{...state,invoices:[...state.invoices,action.payload]}
+
+      return { ...state, invoices: [...state.invoices, action.payload] };
     }
   }
 

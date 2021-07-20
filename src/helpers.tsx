@@ -27,4 +27,6 @@ export const createId = () => {
   return id;
 };
 
-createId();
+
+export const invoices_url = "http://localhost:5000/invoices/";
+
