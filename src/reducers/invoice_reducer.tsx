@@ -25,9 +25,10 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
       return { ...state };
     }
     case "DELETE_INVOICE_COMPLETED": {
-      console.log("success");
+      console.log("success");    
+      let newInvoiceList = state.invoices.filter((item:any)=> {return item._id !== action.payload })
 
-      return { ...state, isDeletedCompleted:true };
+      return { ...state, invoices: newInvoiceList };
     }
     case "DELETE_INVOICE_ERROR": {
       console.log("error");

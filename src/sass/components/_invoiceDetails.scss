@@ -203,6 +203,38 @@ $bottom-margin-invoice: 4rem;
 }
 .delete-modal {
   width: 90%;
-  height: 50vh;
+  height: 220px;
+  padding:2.5rem 2rem;
   background-color: $white;
+  margin: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  border-radius: 8px;
+  h2{
+    margin-bottom: 2rem;
+  }
+  p{
+    color: $gray;
+    margin-bottom: 2rem;
+  }
+  button {
+    margin: auto;
+    margin: 1rem;
+  }
+}
+.delete-btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+@media (min-width: $mq-small) {
+  .delete-modal {
+    width: 480px;
+    height: 249px;
+    padding: 4rem;
+  }
 }

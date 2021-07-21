@@ -22,7 +22,7 @@ const InvoiceDetails = () => {
 
 
 useEffect(() => {
- setIsRedirect(false)
+ setIsRedirect(false);
 }, [single_invoice])
 
   const handleClick = () => {
@@ -30,7 +30,7 @@ useEffect(() => {
   }
   const handleDelete = (_id:string) => {
     deleteInvoice(_id)
-     setIsRedirect(true);
+     setIsRedirect(true); //THIS REDIRECT TO HOMEPAGE
 
   }
 
@@ -191,17 +191,19 @@ useEffect(() => {
       {isDeleteModalOpen && (
         <div className="delete-modal-cover">
           <div className="delete-modal">
-            <h1>Confirm Deletion</h1>
+            <h2>Confirm Deletion</h2>
             <p>
-              Are you sure you want to delete invoice ? This action cannot be
-              undone.
+              Are you sure you want to delete invoice {`#${idInvoice}`}? This action
+              cannot be undone.
             </p>
-            <button className="edit btn " onClick={handleClick}>
-              Cancel
-            </button>
-            <button className="btn delete" onClick={() => handleDelete(_id)}>
-              delete
-            </button>
+            <div className="delete-btn-container">
+              <button className="edit btn " onClick={handleClick}>
+                Cancel
+              </button>
+              <button className="btn delete" onClick={() => handleDelete(_id)}>
+                Delete
+              </button>
+            </div>
           </div>
         </div>
       )}
