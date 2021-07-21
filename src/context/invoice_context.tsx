@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useContext, useEffect, useReducer, createContext } from "react";
 import reducer from "../reducers/invoice_reducer";
-import {invoices_url as url } from "../helpers";
+import { invoices_url as url } from "../helpers";
 import { useHistory } from "react-router-dom";
 
 export interface Invoice {
@@ -45,7 +45,6 @@ interface State {
   isDark: boolean;
   isInvoicesLoading: boolean;
   isNewInvoiceOpen: boolean;
-  isDeletedCompleted: boolean;
   invoices: Array<Invoice>;
   filtered_invoices: Array<Invoice>;
   total_invoices: number;
@@ -56,8 +55,7 @@ const initialState: State = {
   isDark: false,
   isInvoicesLoading: false,
   isNewInvoiceOpen: false, // TO  CHANGEEEEE
-  invoices:[],
-  isDeletedCompleted: false,
+  invoices: [],
   filtered_invoices: [],
   total_invoices: 0,
   filter: {
@@ -68,7 +66,6 @@ const initialState: State = {
   single_invoice: {},
 };
 
-
 const InvoiceContext = React.createContext(null);
 
 export const InvoiceProvider: React.FC = ({ children }) => {
@@ -77,66 +74,84 @@ export const InvoiceProvider: React.FC = ({ children }) => {
   const toggleTheme = () => {
     dispatch({ type: "TOGGLE_THEME" });
   };
-  const fetchInvoices = async (url:string) => {
-    dispatch({type: "FETCH_INVOICES_START"})
-     try {
-       const response = await axios.get(url);
-       const invoices = response.data;
-       dispatch({ type: "FETCH_INVOICES_COMPLETED", payload: invoices });
-     } catch (error) {
-       console.log(error);
-       
-       dispatch({ type: "FETCH_INVOICES_ERROR" });
-     }
-  }
-  const addInvoice = async (invoice:any) => {
+  const fetchInvoices = async (url: string) => {
+    dispatch({ type: "FETCH_INVOICES_START" });
+    try {
+      const response = await axios.get(url);
+      const invoices = response.data;
+      dispatch({ type: "FETCH_INVOICES_COMPLETED", payload: invoices });
+    } catch (error) {
+      console.log(error);
+
+      dispatch({ type: "FETCH_INVOICES_ERROR" });
+    }
+  };
+  //ADD NEW INVOICE =============================================================
+  const addInvoice = async (invoice: any) => {
     let addUrl = url + "add";
     try {
-      const response = await axios.post(addUrl,invoice);
+      const response = await axios.post(addUrl, invoice);
       console.log(response);
-    }catch(error) {
+      dispatch({ type: "ADD_INVOICE_COMPLETED", payload: invoice });
+    } catch (error) {
       console.log(error);
     }
-  }
-  const deleteInvoice = async (id:string) => {
-       let deleteUrl = url + id;
-         
+  };
+  //DELETE INVOICE =============================================================
+  const deleteInvoice = async (id: string) => {
+    let deleteUrl = url + id;
 
-       try {
-         const response = await axios.delete(deleteUrl);
-             dispatch({ type: "DELETE_INVOICE_COMPLETED", payload: id });
-
-
-       } catch (error) {
-         console.log(error);
-        dispatch({ type: "DELETE_INVOICE_ERROR", payload: id });
-
-       }
-  }
-  
+    try {
+      const response = await axios.delete(deleteUrl);
+      dispatch({ type: "DELETE_INVOICE_COMPLETED", payload: id });
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: "DELETE_INVOICE_ERROR", payload: id });
+    }
+  };
+  //FILTERS, PAID,PENDING,DRAFT ====================================================
   const updateFilter = (e: React.FormEvent<HTMLInputElement>) => {
     let name = e.currentTarget.name;
     dispatch({ type: "UPDATE_FILTER", payload: name });
   };
   const getFilteredInvoices = () => {
-    dispatch({type:"GET_FILTERED_INVOICES"});
-  }
+    dispatch({ type: "GET_FILTERED_INVOICES" });
+  };
   const getSingleInvoice = (id: string) => {
     dispatch({ type: "GET_SINGLE_INVOICE", payload: id });
   };
+  //TOTAL No OF INVOICES ====================================================
   const getTotalInvoices = () => {
     dispatch({ type: "GET_TOTAL_INVOICES" });
   };
-   const toggleNewInvoiceModal = () => {
-     dispatch({type: "TOGGLE_NEW_INVOICE_MODAL"})
-   };
-   const handleInvoiceForm = (result:Invoice) => {     
-     dispatch({type:"HANDLE_SUBMIT",payload:result});
-   };
-  
-   useEffect(() => {
-     fetchInvoices(url);
-   }, [])
+  //TOGGLE THE NEW INVOICE MODAL ====================================================
+  const toggleNewInvoiceModal = () => {
+    dispatch({ type: "TOGGLE_NEW_INVOICE_MODAL" });
+  };
+  const handleInvoiceForm = (result: Invoice) => {
+    dispatch({ type: "HANDLE_SUBMIT", payload: result });
+  };
+  const changeStatus = async (invoice: Invoice, status: string, id: string) => {
+    let updateUrl = url + "update/" + id;
+
+    if (status === "pending") invoice.status = "paid";
+    if (status === "paid") invoice.status = "pending";
+    let newStatus = invoice.status;
+    try {
+      const response = await axios.post(updateUrl, invoice);
+      dispatch({
+        type: "UPDATE_INVOICE_COMPLETED",
+        payload: { id, newStatus },
+      });
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: "UPDATE_INVOICE_ERROR", payload: id });
+    }
+  };
+
+  useEffect(() => {
+    fetchInvoices(url);
+  }, []);
 
   return (
     <InvoiceContext.Provider
@@ -151,6 +166,7 @@ export const InvoiceProvider: React.FC = ({ children }) => {
         handleInvoiceForm,
         deleteInvoice,
         addInvoice,
+        changeStatus,
       }}
     >
       {children}

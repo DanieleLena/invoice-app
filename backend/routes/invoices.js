@@ -63,33 +63,19 @@ router.route("/:id").delete((req, res) => {
 router.route("/update/:id").post((req, res) => {
   Invoice.findById(req.params.id)
     .then((invoice) => {
-        let { 
-    id,
-    createdAt,
-    paymentDue,
-    description,
-    paymentTerms,
-    clientName,
-    clientEmail,
-    status,
-    senderAddress,
-    clientAddress,
-    items,
-    total,
-  } = invoice;
-
-   id = req.body.id;
-   createdAt = req.body.createdAt;
-    paymentDue = req.body.paymentDue;
-    description = req.body.description;
-    paymentTerms = req.body.paymentTerms;
-    clientName = req.body.clientName;
-    clientEmail = req.body.clientEmail;
-    status = req.body.status;
-    senderAddress = req.body.senderAddress;
-    clientAddress = req.body.clientAddress;
-    items = req.body.items;
-    total = req.body.total;
+        
+   invoice.id = req.body.id;
+   invoice.createdAt = req.body.createdAt;
+    invoice.paymentDue = req.body.paymentDue;
+    invoice.description = req.body.description;
+    invoice.paymentTerms = req.body.paymentTerms;
+    invoice.clientName = req.body.clientName;
+    invoice.clientEmail = req.body.clientEmail;
+    invoice.status = req.body.status;
+    invoice.senderAddress = req.body.senderAddress;
+    invoice.clientAddress = req.body.clientAddress;
+    invoice.items = req.body.items;
+    invoice.total = req.body.total;
 
     invoice.save()
     .then(()=> res.json('invoice updated'))

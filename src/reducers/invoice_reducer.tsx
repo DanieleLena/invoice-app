@@ -1,5 +1,6 @@
 // import { stat } from "fs";
 import { Invoice } from "../context/invoice_context";
+import { invoices_url } from "../helpers";
 
 const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
   const { type, payload } = action;
@@ -24,9 +25,15 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
     case "FETCH_INVOICES_ERROR": {
       return { ...state };
     }
+    case "ADD_INVOICE_COMPLETED": {
+      const newInvoice = action.payload;
+      return { ...state, invoices: [...state.invoices, newInvoice] };
+    }
     case "DELETE_INVOICE_COMPLETED": {
-      console.log("success");    
-      let newInvoiceList = state.invoices.filter((item:any)=> {return item._id !== action.payload })
+      console.log("success");
+      let newInvoiceList = state.invoices.filter((item: any) => {
+        return item._id !== action.payload;
+      });
 
       return { ...state, invoices: newInvoiceList };
     }
@@ -76,6 +83,14 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
       console.log(action.payload);
 
       return { ...state, invoices: [...state.invoices, action.payload] };
+    }
+    case "UPDATE_INVOICE_COMPLETED": {
+      const { newStatus, id } = action.payload;
+    
+      return {
+        ...state,
+        single_invoice: { ...state.single_invoice, status: newStatus },
+      };
     }
   }
 

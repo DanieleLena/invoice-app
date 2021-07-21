@@ -14,40 +14,38 @@ const InvoiceDetails = () => {
     single_invoice,
     deleteInvoice,
     isDeletedCompleted,
+    changeStatus,
   } = useInvoiceContext();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [isRedirect,setIsRedirect] = useState(false);
+  const [isRedirect, setIsRedirect] = useState(false);
 
   console.log(single_invoice);
 
-
-useEffect(() => {
- setIsRedirect(false);
-}, [single_invoice])
+  useEffect(() => {
+    setIsRedirect(false);
+  }, [single_invoice]);
 
   const handleClick = () => {
     setIsDeleteModalOpen(!isDeleteModalOpen);
-  }
-  const handleDelete = (_id:string) => {
-    deleteInvoice(_id)
-     setIsRedirect(true); //THIS REDIRECT TO HOMEPAGE
-
-  }
+  };
+  const handleDelete = (_id: string) => {
+    deleteInvoice(_id);
+    setIsRedirect(true); //THIS REDIRECT TO HOMEPAGE
+  };
 
   useEffect(() => {
     getSingleInvoice(id);
   }, [invoices]);
 
   //TO CHANGE WITH A LOADING STATUS LATER WHEN WE GONNA FETCH DATA FROM DATABASE
-  if(single_invoice){
-  if (Object.keys(single_invoice).length === 0) { 
-    console.log("laoding");
+  if (single_invoice) {
+    if (Object.keys(single_invoice).length === 0) {
+      console.log("laoding");
+      return <h2>Loading</h2>;
+    }
+  } else {
     return <h2>Loading</h2>;
   }
-}else {
-      return <h2>Loading</h2>;
-
-}
 
   const {
     _id,
@@ -62,9 +60,9 @@ useEffect(() => {
       postCode: postCodeSender,
     },
     clientAddress: {
-      city:cityClient,
-      street:streetClient,
-      country:countryClient,
+      city: cityClient,
+      street: streetClient,
+      country: countryClient,
       postCode: postCodeClient,
     },
     total,
@@ -72,10 +70,10 @@ useEffect(() => {
     createdAt,
     paymentDue,
   } = single_invoice;
-  
 
-  
-
+  const statusHandler = () => {
+    return "ciao";
+  };
 
   return (
     <section className="invoiceDetails-section">
@@ -99,7 +97,21 @@ useEffect(() => {
         <button className="btn delete" onClick={handleClick}>
           Delete
         </button>
-        <button className="btn confirm">Mark as Pending</button>
+        {status === "pending" ? (
+          <button
+            className="btn confirm"
+            onClick={() => changeStatus(single_invoice,"pending",_id)}
+          >
+            Mark as paid
+          </button>
+        ) : (
+          <button
+            className="btn confirm"
+            onClick={() => changeStatus(single_invoice,"paid",_id)}
+          >
+            Mark as pending
+          </button>
+        )}
       </div>
 
       <div className="invoiceDetails-main">
@@ -193,8 +205,8 @@ useEffect(() => {
           <div className="delete-modal">
             <h2>Confirm Deletion</h2>
             <p>
-              Are you sure you want to delete invoice {`#${idInvoice}`}? This action
-              cannot be undone.
+              Are you sure you want to delete invoice {`#${idInvoice}`}? This
+              action cannot be undone.
             </p>
             <div className="delete-btn-container">
               <button className="edit btn " onClick={handleClick}>
@@ -207,6 +219,7 @@ useEffect(() => {
           </div>
         </div>
       )}
+      {/* REDIRECT TO HOMEPAGE IF THE INVOICE IS DELETED CORRECTLY */}
       {isRedirect && <Redirect push to="/" />}
     </section>
   );
