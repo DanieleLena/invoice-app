@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useContext, useEffect, useReducer, createContext } from "react";
 import reducer from "../reducers/invoice_reducer";
 import {invoices_url as url } from "../helpers";
+import { useHistory } from "react-router-dom";
 
 export interface Invoice {
   id: string;
@@ -43,9 +44,10 @@ interface Filter {
 interface State {
   isDark: boolean;
   isInvoicesLoading: boolean;
-  isNewInvoiceOpen: boolean,
+  isNewInvoiceOpen: boolean;
+  isDeletedCompleted: boolean;
   invoices: Array<Invoice>;
-  filtered_invoices: Array<Invoice>
+  filtered_invoices: Array<Invoice>;
   total_invoices: number;
   filter: Filter;
   single_invoice: Object;
@@ -55,6 +57,7 @@ const initialState: State = {
   isInvoicesLoading: false,
   isNewInvoiceOpen: false, // TO  CHANGEEEEE
   invoices:[],
+  isDeletedCompleted: false,
   filtered_invoices: [],
   total_invoices: 0,
   filter: {
@@ -95,8 +98,20 @@ export const InvoiceProvider: React.FC = ({ children }) => {
       console.log(error);
     }
   }
-  const deleteInvoice = () => {
-    dispatch({type: "DELETE_INVOICE"});
+  const deleteInvoice = async (id:string) => {
+       let deleteUrl = url + id;
+         
+
+       try {
+         const response = await axios.delete(deleteUrl);
+             dispatch({ type: "DELETE_INVOICE_COMPLETED", payload: id });
+
+
+       } catch (error) {
+         console.log(error);
+        dispatch({ type: "DELETE_INVOICE_ERROR", payload: id });
+
+       }
   }
   
   const updateFilter = (e: React.FormEvent<HTMLInputElement>) => {

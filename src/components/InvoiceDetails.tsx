@@ -1,27 +1,56 @@
 import { timeout } from "q";
 import React, { useEffect } from "react";
-import { useParams } from "react-router";
+import { useState } from "react";
+import { Redirect, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { useInvoiceContext } from "../context/invoice_context";
 import { formatDate, formatPrice } from "../helpers";
 
 const InvoiceDetails = () => {
   let id = useParams();
-  const { invoices, getSingleInvoice, single_invoice } = useInvoiceContext();
+  const {
+    invoices,
+    getSingleInvoice,
+    single_invoice,
+    deleteInvoice,
+    isDeletedCompleted,
+  } = useInvoiceContext();
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isRedirect,setIsRedirect] = useState(false);
 
   console.log(single_invoice);
+
+
+useEffect(() => {
+ setIsRedirect(false)
+}, [single_invoice])
+
+  const handleClick = () => {
+    setIsDeleteModalOpen(!isDeleteModalOpen);
+  }
+  const handleDelete = (_id:string) => {
+    deleteInvoice(_id)
+     setIsRedirect(true);
+
+  }
 
   useEffect(() => {
     getSingleInvoice(id);
   }, [invoices]);
 
   //TO CHANGE WITH A LOADING STATUS LATER WHEN WE GONNA FETCH DATA FROM DATABASE
-  if (Object.keys(single_invoice).length === 0) {
+  if(single_invoice){
+  if (Object.keys(single_invoice).length === 0) { 
     console.log("laoding");
     return <h2>Loading</h2>;
   }
+}else {
+      return <h2>Loading</h2>;
+
+}
 
   const {
+    _id,
     id: idInvoice,
     clientName,
     status,
@@ -63,12 +92,13 @@ const InvoiceDetails = () => {
             <div className="status-circle"></div>
             <h2>{status}</h2>
           </div>
-          
         </div>
       </div>
       <div className="invoiceDetails-btns">
         <button className="btn secondary-btn">Edit</button>
-        <button className="btn delete">Delete</button>
+        <button className="btn delete" onClick={handleClick}>
+          Delete
+        </button>
         <button className="btn confirm">Mark as Pending</button>
       </div>
 
@@ -158,6 +188,24 @@ const InvoiceDetails = () => {
           </div>
         </div>
       </div>
+      {isDeleteModalOpen && (
+        <div className="delete-modal-cover">
+          <div className="delete-modal">
+            <h1>Confirm Deletion</h1>
+            <p>
+              Are you sure you want to delete invoice ? This action cannot be
+              undone.
+            </p>
+            <button className="edit btn " onClick={handleClick}>
+              Cancel
+            </button>
+            <button className="btn delete" onClick={() => handleDelete(_id)}>
+              delete
+            </button>
+          </div>
+        </div>
+      )}
+      {isRedirect && <Redirect push to="/" />}
     </section>
   );
 };

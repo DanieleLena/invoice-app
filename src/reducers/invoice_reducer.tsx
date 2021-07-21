@@ -18,12 +18,23 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
     }
     case "FETCH_INVOICES_COMPLETED": {
       console.log(action.payload);
-      
+
       return { ...state, isInvoicesLoading: false, invoices: action.payload };
     }
     case "FETCH_INVOICES_ERROR": {
       return { ...state };
     }
+    case "DELETE_INVOICE_COMPLETED": {
+      console.log("success");
+
+      return { ...state, isDeletedCompleted:true };
+    }
+    case "DELETE_INVOICE_ERROR": {
+      console.log("error");
+
+      return { ...state };
+    }
+
     case "UPDATE_FILTER": {
       let newvalue = !state.filter[payload];
       return { ...state, filter: { ...state.filter, [payload]: newvalue } };

@@ -348,7 +348,5 @@ const NewInvoiceModal = () => {
 };
 
 export default NewInvoiceModal;
-function addInvoice(result: Invoice) {
-  throw new Error("Function not implemented.");
-}
+
 
