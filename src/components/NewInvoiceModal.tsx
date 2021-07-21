@@ -41,11 +41,18 @@ const NewInvoiceModal = () => {
     total: 0,
   });
 
+  const [itemNumber, setItemNumber] = useState(1);
+
   const closeModal = (e: any) => {
     if (modalRef.current === e.target) {
       toggleNewInvoiceModal();
     }
   };
+  const addNewItem = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();    
+    setItemNumber(itemNumber+1);
+
+  }
 
   // Close the modal when press 'Esc' ================================
 
@@ -334,6 +341,80 @@ const NewInvoiceModal = () => {
             onChange={handleOnChange}
             placeholder="Graphic design"
           />
+          {/* PROVA ========================== */}
+          <div className="item-list">
+            <h2>Item List</h2>
+
+            {[...Array(itemNumber)].map((index, i) => (
+              <div className="item" key={i}>
+                {/* ITEM NAME */}
+                <div className="item-name">
+                  <label htmlFor="name" className="p-gray">
+                    Item Name
+                  </label>
+                  <input
+                    className="input-long"
+                    type="text"
+                    name="name"
+                    value={result.description}
+                    onChange={handleOnChange}
+                    placeholder="Item Name"
+                  />
+                </div>
+                {/* ITEM QUANTITY */}
+                <div className="item-qty">
+                  <label htmlFor="quantity" className="p-gray">
+                    Qty.
+                  </label>
+                  <input
+                    className="input-long"
+                    type="text"
+                    name="number"
+                    value={result.description}
+                    onChange={handleOnChange}
+                    placeholder="1"
+                  />
+                </div>
+                {/* ITEM PRICE */}
+                <div className="item-price-form">
+                  <label htmlFor="price" className="p-gray">
+                    Price
+                  </label>
+                  <input
+                    className="input-long"
+                    type="number"
+                    name="price"
+                    value={result.description}
+                    onChange={handleOnChange}
+                    placeholder="0.00"
+                  />
+                </div>
+                {/* ITEM TOTAL */}
+                <div className="item-total-form">
+                  <label htmlFor="total" className="p-gray">
+                    Total
+                  </label>
+                  <input
+                    className="input-long"
+                    type="number"
+                    name="total"
+                    value={result.description}
+                    onChange={handleOnChange}
+                    placeholder="0.00"
+                    readOnly
+                  />
+                </div>
+                <div className="remove-btn">
+                  <img src="/assets/icon-delete.svg" alt="delete item" />
+                </div>
+              </div>
+            ))}
+          </div>
+          <button className="btn" onClick={addNewItem}>
+            ADD NEW ITEM
+          </button>
+          {/* PROVA ========================== */}
+
           <div className="invoiceDetails-btns">
             <button className="btn secondary-btn">Edit</button>
             <button className="btn dark-btn">Save as Draft</button>

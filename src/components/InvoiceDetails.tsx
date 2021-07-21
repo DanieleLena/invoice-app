@@ -19,7 +19,6 @@ const InvoiceDetails = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isRedirect, setIsRedirect] = useState(false);
 
-  console.log(single_invoice);
 
   useEffect(() => {
     setIsRedirect(false);

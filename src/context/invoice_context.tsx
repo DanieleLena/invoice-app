@@ -54,7 +54,7 @@ interface State {
 const initialState: State = {
   isDark: false,
   isInvoicesLoading: false,
-  isNewInvoiceOpen: false, // TO  CHANGEEEEE
+  isNewInvoiceOpen: true, // TO  CHANGEEEEE
   invoices: [],
   filtered_invoices: [],
   total_invoices: 0,
