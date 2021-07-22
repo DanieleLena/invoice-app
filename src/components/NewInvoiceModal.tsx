@@ -1,11 +1,15 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useInvoiceContext } from "../context/invoice_context";
+import { Item, useInvoiceContext } from "../context/invoice_context";
 import { Invoice } from "../context/invoice_context";
 import { createId } from "../helpers";
 
 const NewInvoiceModal = () => {
-  const { toggleNewInvoiceModal, isNewInvoiceOpen, handleInvoiceForm ,addInvoice} =
-    useInvoiceContext()!;
+  const {
+    toggleNewInvoiceModal,
+    isNewInvoiceOpen,
+    handleInvoiceForm,
+    addInvoice,
+  } = useInvoiceContext()!;
 
   const modalRef = useRef();
 
@@ -48,11 +52,6 @@ const NewInvoiceModal = () => {
       toggleNewInvoiceModal();
     }
   };
-  const addNewItem = (e: { preventDefault: () => void; }) => {
-    e.preventDefault();    
-    setItemNumber(itemNumber+1);
-
-  }
 
   // Close the modal when press 'Esc' ================================
 
@@ -73,8 +72,47 @@ const NewInvoiceModal = () => {
   useEffect(() => {
     let generateId = createId();
     setResult({ ...result, id: generateId });
+    console.log(result);
   }, []);
 
+  //ITEMS FUCNTION ==================================================================
+
+  const handleItemOnChange = (e: any) => {
+    //THE ID  = index of the elemnt in items array
+    const id: any = e.target.parentNode.parentNode.id;
+    //GET THE RIGHT ITEM BY ID
+    let selectedItem: Item = result.items[id];
+
+    selectedItem = { ...selectedItem, [e.target.name]: e.target.value };
+    let totalItem = selectedItem.price * selectedItem.quantity;
+    selectedItem = { ...selectedItem, total: totalItem };
+
+    let newItemList = [...result.items];
+    newItemList[id] = selectedItem;
+    setResult({ ...result, items: newItemList });
+  };
+  const addNewItem = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    setItemNumber(itemNumber + 1);
+    let newItem = {
+      name: "",
+      quantity: 0,
+      price: 0,
+      total: 0,
+    };
+    setResult({ ...result, items: [...result.items, newItem] });
+  };
+
+  const deleteItem = (e: any) => {
+    e.currentTarget.parentNode.remove();
+    const id: any = e.target.parentNode.parentNode.id;
+console.log(id);
+
+
+    console.log(result.items);
+    
+   
+  };
 
   const handleOnChange = (e: any) => {
     if (e.target.name.includes("sender")) {
@@ -137,11 +175,9 @@ const NewInvoiceModal = () => {
       setResult({ ...result, [e.target.name]: e.target.value });
     }
   };
-
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    // handleInvoiceForm(result);
-    addInvoice(result)
+    addInvoice(result);
     toggleNewInvoiceModal();
   };
 
@@ -321,13 +357,7 @@ const NewInvoiceModal = () => {
             <option value="14">Net 14 day</option>
             <option value="30">Net 30 day</option>
           </select>
-          {/* <input
-            className="input-long"
-            type="text"
-            name="paymentTerms"
-            value={result.paymentTerms}
-            placeholder="net 30 Days"
-          /> */}
+
           {/* PAYMENT TERMS ================== */}
 
           <label htmlFor="projectDesciption" className="p-gray">
@@ -346,7 +376,7 @@ const NewInvoiceModal = () => {
             <h2>Item List</h2>
 
             {[...Array(itemNumber)].map((index, i) => (
-              <div className="item" key={i}>
+              <div className="item" key={i} id={i.toString()}>
                 {/* ITEM NAME */}
                 <div className="item-name">
                   <label htmlFor="name" className="p-gray">
@@ -356,8 +386,8 @@ const NewInvoiceModal = () => {
                     className="input-long"
                     type="text"
                     name="name"
-                    value={result.description}
-                    onChange={handleOnChange}
+                    value={result.items[i].name}
+                    onChange={handleItemOnChange}
                     placeholder="Item Name"
                   />
                 </div>
@@ -369,9 +399,9 @@ const NewInvoiceModal = () => {
                   <input
                     className="input-long"
                     type="text"
-                    name="number"
-                    value={result.description}
-                    onChange={handleOnChange}
+                    name="quantity"
+                    value={result.items[i].quantity}
+                    onChange={handleItemOnChange}
                     placeholder="1"
                   />
                 </div>
@@ -384,8 +414,8 @@ const NewInvoiceModal = () => {
                     className="input-long"
                     type="number"
                     name="price"
-                    value={result.description}
-                    onChange={handleOnChange}
+                    value={result.items[i].price}
+                    onChange={handleItemOnChange}
                     placeholder="0.00"
                   />
                 </div>
@@ -398,13 +428,13 @@ const NewInvoiceModal = () => {
                     className="input-long"
                     type="number"
                     name="total"
-                    value={result.description}
-                    onChange={handleOnChange}
+                    value={result.items[i].total}
+                    onChange={handleItemOnChange}
                     placeholder="0.00"
                     readOnly
                   />
                 </div>
-                <div className="remove-btn">
+                <div className="delete-btn" onClick={deleteItem}>
                   <img src="/assets/icon-delete.svg" alt="delete item" />
                 </div>
               </div>
@@ -430,4 +460,6 @@ const NewInvoiceModal = () => {
 
 export default NewInvoiceModal;
 
-
+function e(e: any): void {
+  throw new Error("Function not implemented.");
+}

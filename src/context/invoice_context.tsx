@@ -4,6 +4,13 @@ import reducer from "../reducers/invoice_reducer";
 import { invoices_url as url } from "../helpers";
 import { useHistory } from "react-router-dom";
 
+
+export interface Item {
+      name: string;
+      quantity: number;
+      price: number;
+      total: number;
+}
 export interface Invoice {
   id: string;
   createdAt: string;
@@ -25,14 +32,8 @@ export interface Invoice {
     postCode: string;
     country: string;
   };
-  items: [
-    {
-      name: string;
-      quantity: number;
-      price: number;
-      total: number;
-    }
-  ];
+  items: Item[];
+
   total: number;
 }
 interface Filter {
