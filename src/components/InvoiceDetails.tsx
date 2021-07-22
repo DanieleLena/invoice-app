@@ -64,15 +64,26 @@ const InvoiceDetails = () => {
       country: countryClient,
       postCode: postCodeClient,
     },
+    items,
     total,
     clientEmail,
     createdAt,
     paymentDue,
   } = single_invoice;
 
-  const statusHandler = () => {
-    return "ciao";
-  };
+const getGrandTotal = () => {
+  let grandTotal = 0;  
+  items.map((item: { total: number; })=>{
+    const {total} = item;
+    console.log(total);
+    grandTotal = grandTotal + total;
+  })
+  return formatPrice(grandTotal);
+}
+
+
+
+ 
 
   return (
     <section className="invoiceDetails-section">
@@ -99,14 +110,14 @@ const InvoiceDetails = () => {
         {status === "pending" ? (
           <button
             className="btn confirm"
-            onClick={() => changeStatus(single_invoice,"pending",_id)}
+            onClick={() => changeStatus(single_invoice, "pending", _id)}
           >
             Mark as paid
           </button>
         ) : (
           <button
             className="btn confirm"
-            onClick={() => changeStatus(single_invoice,"paid",_id)}
+            onClick={() => changeStatus(single_invoice, "paid", _id)}
           >
             Mark as pending
           </button>
@@ -163,39 +174,37 @@ const InvoiceDetails = () => {
               <p className="p-gray">Total</p>
             </div>
           </div>
-          <div className="invoiceDetails-item">
-            <div className="item-name">
-              <h4>Banner Design</h4>
-            </div>
-            <div className="item-quantity">
-              <h4>1x</h4>
-            </div>
-            <div className="item-price">
-              <h4>{formatPrice(35)}</h4>
-            </div>
-            <div className="item-total">
-              <h4>{formatPrice(350)}</h4>
-            </div>
-          </div>
+          {items.map(
+            (item: {
+              name: string;
+              quantity: number;
+              price: number;
+              total: number;
+            },i:any) => {
+              const { name, quantity, price, total } = item;
 
-          <div className="invoiceDetails-item">
-            <div className="item-name">
-              <h4>Banner Design</h4>
-            </div>
-            <div className="item-quantity">
-              <h4>1x</h4>
-            </div>
-            <div className="item-price">
-              <h4>{formatPrice(35)}</h4>
-            </div>
-            <div className="item-total">
-              <h4>{formatPrice(350)}</h4>
-            </div>
-          </div>
+              return (
+                <div className="invoiceDetails-item" key={i}>
+                  <div className="item-name">
+                    <h4>{name}</h4>
+                  </div>
+                  <div className="item-quantity">
+                    <h4>{quantity}</h4>
+                  </div>
+                  <div className="item-price">
+                    <h4>{formatPrice(price)}</h4>
+                  </div>
+                  <div className="item-total">
+                    <h4>{formatPrice(total)}</h4>
+                  </div>
+                </div>
+              );
+            }
+          )}
 
           <div className="invoiceDetails-grandTotal">
             <p>Grand Total</p>
-            <h2>556,30$</h2>
+            <h2>{getGrandTotal()}</h2>
           </div>
         </div>
       </div>

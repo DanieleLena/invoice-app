@@ -26,6 +26,8 @@
     border-color: #dfe3fa;
     box-shadow: none;
     margin-bottom: 2rem;
+    border-radius: 4px;
+    padding-left: 2rem;
   }
   h4 {
     color: $purple;
@@ -74,9 +76,9 @@
   background-color: #f8f8fb;
 }
 .addItem-btn {
-    margin-top: 2rem;
+  margin-top: 2rem;
   width: 100%;
-//   background-color: $light-bg;
+  //   background-color: $light-bg;
   color: $gray;
 }
 .delete-btn {
@@ -107,10 +109,51 @@
     width: 100%;
     transform: none;
   }
+  .item {
+    grid-template-columns: 2fr 48px 100px 1fr 0.5fr;
+    grid-template-rows: 100px;
+    gap: 2rem;
+    input {
+      text-align: center;
+    }
+  }
+  .item-name {
+    grid-row: 1/2;
+    grid-column: 1/2;
+    input {
+      text-align: start;
+    }
+  }
+  .item-qty {
+    grid-row: 1/2;
+    grid-column: 2/3;
+    input {
+      padding-left: 0;
+    }
+  }
+  .item-price-form {
+    grid-row: 1/2;
+    grid-column: 3/4;
+    margin: 0 0.5rem;
+  }
+  .item-total-form {
+    grid-row: 1/2;
+    grid-column: 4/5;
+  }
+  .delete-btn {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50%;
+    grid-row: 1/2;
+    grid-column: 5/6;
+    cursor: pointer;
+  }
 }
 @media (min-width: $mq-medium) {
-    .newInvoice-modal{
-        top:0;
-        left: $navBar-vertical-width;
-    }
+  .newInvoice-modal {
+    top: 0;
+    left: $navBar-vertical-width;
+  }
 }
