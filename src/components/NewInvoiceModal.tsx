@@ -104,14 +104,15 @@ const NewInvoiceModal = () => {
   };
 
   const deleteItem = (e: any) => {
+    // const id: any = e.target.parentNode.parentNode.id;
+
     e.currentTarget.parentNode.remove();
-    const id: any = e.target.parentNode.parentNode.id;
-console.log(id);
 
+    // let deleteItemList = [...result.items];
+    // deleteItemList.splice(id, 1);
+    // console.log(deleteItemList);
 
-    console.log(result.items);
-    
-   
+    // setResult({ ...result, items: deleteItemList });
   };
 
   const handleOnChange = (e: any) => {
@@ -182,12 +183,14 @@ console.log(id);
   };
 
   return (
-    <div className="modal-bg" ref={modalRef} onClick={closeModal}>
+    <>
+      <div className="modal-bg" ref={modalRef} onClick={closeModal}></div>
       <div className="newInvoice-modal">
         <div className="go-back-container" onClick={toggleNewInvoiceModal}>
           <img src="/assets/icon-arrow-left.svg" alt=""></img>
           <h4>Go Back</h4>
         </div>
+
         <form>
           <h4>Bill from</h4>
           {/* SENDER ================= */}
@@ -403,6 +406,7 @@ console.log(id);
                     value={result.items[i].quantity}
                     onChange={handleItemOnChange}
                     placeholder="1"
+                    required
                   />
                 </div>
                 {/* ITEM PRICE */}
@@ -440,26 +444,26 @@ console.log(id);
               </div>
             ))}
           </div>
-          <button className="btn" onClick={addNewItem}>
-            ADD NEW ITEM
+          <button className="btn addItem-btn" onClick={addNewItem}>
+            + Add New Item
           </button>
           {/* PROVA ========================== */}
 
-          <div className="invoiceDetails-btns">
+          <div className="invoiceDetails-btns modal-btn">
             <button className="btn secondary-btn">Edit</button>
             <button className="btn dark-btn">Save as Draft</button>
-            <button className="btn purple-btn" onClick={handleSubmit}>
+            <button
+              className="btn purple-btn"
+              type="submit"
+              onClick={handleSubmit}
+            >
               Save &amp; Send
             </button>
           </div>
         </form>
       </div>
-    </div>
+    </>
   );
 };
 
 export default NewInvoiceModal;
-
-function e(e: any): void {
-  throw new Error("Function not implemented.");
-}

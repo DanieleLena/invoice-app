@@ -1,91 +1,116 @@
-
 .modal-bg {
-    position: absolute;
-    top: 72px; //navbar height
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.247);
+  position: fixed;
+  top: 72px; //navbar height
+  left: 0;
+  width: 100%;
+  height: 200vh;
+  background-color: rgba(0, 0, 0, 0.247);
 }
-.newInvoice-modal{
+.newInvoice-modal {
+  width: 100%;
+  // height: 100vh;
+  background-color: $white;
+  position: absolute;
+  top: 72px; //navbar height
+  left: 0;
+  padding: 0 2rem;
+  padding-bottom: 10rem; // for the btns bar fixed at the bottom of the page
+  label {
+    display: block;
+  }
+  input,
+  select {
     width: 100%;
-    // height: 100vh;
-    background-color: $white;
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding:  0 2rem;
-    padding-bottom: 10rem; // for the btns bar fixed at the bottom of the page
-    label {
-        display: block;
-    }
-    input,select {
-        width: 100%;
-        height: 48px;
-        border: 1px solid;
-        border-color: #DFE3FA;
-        box-shadow: none;
-        margin-bottom: 2rem;
-    }
-    h4 {
-color: $purple;
-margin-bottom: 1rem;
-    }
+    height: 48px;
+    border: 1px solid;
+    border-color: #dfe3fa;
+    box-shadow: none;
+    margin-bottom: 2rem;
+  }
+  h4 {
+    color: $purple;
+    margin-bottom: 1rem;
+  }
 }
-.city-postcode-country{
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-
+.city-postcode-country {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
 }
 .form-line {
-    width: 100%;
+  width: 100%;
 }
-.country{
-    // width: 200%;
-    grid-column: 1/3;
+.country {
+  // width: 200%;
+  grid-column: 1/3;
 }
-
 
 // ITEMS =====================================================================
 
 .item {
-    
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr .5fr;
-    grid-template-rows: 100px 100px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 0.5fr;
+  grid-template-rows: 100px 100px;
 }
 .item-name {
-    grid-row: 1/2;
-    grid-column: 1/5;
+  grid-row: 1/2;
+  grid-column: 1/5;
 }
-.item-qty{
-    grid-row: 2/2;
-    grid-column: 1/2;
+.item-qty {
+  grid-row: 2/2;
+  grid-column: 1/2;
 }
-.item-price-form{
-    grid-row: 2/2;
-    grid-column: 2/3;
-    margin: 0 .5rem;
+.item-price-form {
+  grid-row: 2/2;
+  grid-column: 2/3;
+  margin: 0 0.5rem;
 }
-.item-total-form{
-    grid-row: 2/2;
-    grid-column: 3/4;
+.item-total-form {
+  grid-row: 2/2;
+  grid-column: 3/4;
 }
 .item:nth-child(odd) {
-    background-color: #f8f8fb;
+  background-color: #f8f8fb;
+}
+.addItem-btn {
+    margin-top: 2rem;
+  width: 100%;
+//   background-color: $light-bg;
+  color: $gray;
 }
 .delete-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 50%;
-    grid-row: 2/2;
-    grid-column: 4/5;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50%;
+  grid-row: 2/2;
+  grid-column: 4/5;
+  cursor: pointer;
 }
 
 //mq
 //    left: $navBar-vertical-width;
 
+@media (min-width: $mq-small) {
+  .modal-bg {
+    top: 0px;
+  }
+  .newInvoice-modal {
+    top: 80px; //navbar height
+
+    width: 616px;
+    padding-bottom: 2rem;
+  }
+  .modal-btn {
+    position: block;
+    width: 100%;
+    transform: none;
+  }
+}
+@media (min-width: $mq-medium) {
+    .newInvoice-modal{
+        top:0;
+        left: $navBar-vertical-width;
+    }
+}
