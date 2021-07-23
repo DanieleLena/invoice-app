@@ -36,6 +36,7 @@ const NewInvoiceModal = () => {
     },
     items: [
       {
+        itemId:Math.floor(1000 + Math.random() * 9000),
         name: "",
         quantity: 0,
         price: 0,
@@ -45,7 +46,6 @@ const NewInvoiceModal = () => {
     total: 0,
   });
 
-  const [itemNumber, setItemNumber] = useState(1);
 
   const closeModal = (e: any) => {
     if (modalRef.current === e.target) {
@@ -90,11 +90,14 @@ const NewInvoiceModal = () => {
     let newItemList = [...result.items];
     newItemList[id] = selectedItem;
     setResult({ ...result, items: newItemList });
+    console.log(result);
+    
   };
   const addNewItem = (e: { preventDefault: () => void }) => {
+   
     e.preventDefault();
-    setItemNumber(itemNumber + 1);
     let newItem = {
+      itemId: Math.floor(1000 + Math.random() * 9000),
       name: "",
       quantity: 0,
       price: 0,
@@ -103,16 +106,10 @@ const NewInvoiceModal = () => {
     setResult({ ...result, items: [...result.items, newItem] });
   };
 
-  const deleteItem = (e: any) => {
-    // const id: any = e.target.parentNode.parentNode.id;
+  const deleteItem = (id:number) => {
 
-    e.currentTarget.parentNode.remove();
-
-    // let deleteItemList = [...result.items];
-    // deleteItemList.splice(id, 1);
-    // console.log(deleteItemList);
-
-    // setResult({ ...result, items: deleteItemList });
+    let deleteItemList = result.items.filter((item)=> item.itemId !== id);
+    setResult({ ...result, items: deleteItemList });
   };
 
   const handleOnChange = (e: any) => {
@@ -378,8 +375,10 @@ const NewInvoiceModal = () => {
           <div className="item-list">
             <h2>Item List</h2>
 
-            {[...Array(itemNumber)].map((index, i) => (
+            {/* {[...Array(itemNumber)].map((index, i) => ( */}
+            {result.items.map((item, i) => (
               <div className="item" key={i} id={i.toString()}>
+                <h1>{item.itemId}</h1>
                 {/* ITEM NAME */}
                 <div className="item-name">
                   <label htmlFor="name" className="p-gray">
@@ -438,7 +437,7 @@ const NewInvoiceModal = () => {
                     readOnly
                   />
                 </div>
-                <div className="delete-btn" onClick={deleteItem}>
+                <div className="delete-btn" onClick={(e) => deleteItem(item.itemId)}>
                   <img src="/assets/icon-delete.svg" alt="delete item" />
                 </div>
               </div>

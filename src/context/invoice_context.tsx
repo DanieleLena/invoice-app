@@ -6,10 +6,12 @@ import { useHistory } from "react-router-dom";
 
 
 export interface Item {
+      itemId: number,
       name: string;
       quantity: number;
       price: number;
       total: number;
+      
 }
 export interface Invoice {
   id: string;
@@ -68,6 +70,9 @@ const initialState: State = {
 };
 
 const InvoiceContext = React.createContext(null);
+
+
+
 
 export const InvoiceProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
