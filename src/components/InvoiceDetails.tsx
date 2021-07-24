@@ -13,7 +13,6 @@ const InvoiceDetails = () => {
     getSingleInvoice,
     single_invoice,
     deleteInvoice,
-    isDeletedCompleted,
     changeStatus,
   } = useInvoiceContext();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -75,7 +74,6 @@ const getGrandTotal = () => {
   let grandTotal = 0;  
   items.map((item: { total: number; })=>{
     const {total} = item;
-    console.log(total);
     grandTotal = grandTotal + total;
   })
   return formatPrice(grandTotal);

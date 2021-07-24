@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Item, useInvoiceContext } from "../context/invoice_context";
 import { Invoice } from "../context/invoice_context";
 import { createId } from "../helpers";
+import { invoices_url as url } from "../helpers";
 
 const NewInvoiceModal = () => {
   const {
@@ -9,6 +10,7 @@ const NewInvoiceModal = () => {
     isNewInvoiceOpen,
     handleInvoiceForm,
     addInvoice,
+    fetchInvoices,
   } = useInvoiceContext()!;
 
   const modalRef = useRef();
@@ -36,7 +38,7 @@ const NewInvoiceModal = () => {
     },
     items: [
       {
-        itemId:Math.floor(1000 + Math.random() * 9000),
+        itemId: Math.floor(1000 + Math.random() * 9000),
         name: "",
         quantity: 0,
         price: 0,
@@ -45,7 +47,6 @@ const NewInvoiceModal = () => {
     ],
     total: 0,
   });
-
 
   const closeModal = (e: any) => {
     if (modalRef.current === e.target) {
@@ -72,7 +73,7 @@ const NewInvoiceModal = () => {
   useEffect(() => {
     let generateId = createId();
     setResult({ ...result, id: generateId });
-    console.log(result);
+    console.log("ID GENERATED " + generateId);
   }, []);
 
   //ITEMS FUCNTION ==================================================================
@@ -90,12 +91,9 @@ const NewInvoiceModal = () => {
     let newItemList = [...result.items];
     newItemList[id] = selectedItem;
     setResult({ ...result, items: newItemList });
-    console.log(result);
-    
   };
   const addNewItem = (e: { preventDefault: () => void }) => {
-   
-    e.preventDefault();
+    // e.preventDefault();
     let newItem = {
       itemId: Math.floor(1000 + Math.random() * 9000),
       name: "",
@@ -106,9 +104,8 @@ const NewInvoiceModal = () => {
     setResult({ ...result, items: [...result.items, newItem] });
   };
 
-  const deleteItem = (id:number) => {
-
-    let deleteItemList = result.items.filter((item)=> item.itemId !== id);
+  const deleteItem = (id: number) => {
+    let deleteItemList = result.items.filter((item) => item.itemId !== id);
     setResult({ ...result, items: deleteItemList });
   };
 
@@ -173,10 +170,40 @@ const NewInvoiceModal = () => {
       setResult({ ...result, [e.target.name]: e.target.value });
     }
   };
-  const handleSubmit = (e: { preventDefault: () => void }) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
-    addInvoice(result);
+    console.log(result);
+
+   let isValidated =  validate(e); //if validate pass the validation return true
+   
+   if(isValidated){
+      addInvoice(result);
+    fetchInvoices(url);
     toggleNewInvoiceModal();
+   }
+   
+  };
+  const validate = (e: any) => {
+    let isformCompleted = true;
+    let formElements = e.currentTarget.elements;
+    formElements = [...formElements]; //transform the html collection in an array
+    formElements = formElements.filter((item: any) => {
+      //keep only the input node
+      return item.nodeName === "INPUT";
+    });
+    //remove the invalid-input class when you try to submit the seccond time
+    formElements.forEach((item: any) => {
+      item.classList.remove("invalid-input");      
+    });
+    formElements.forEach((item: any) => {
+      //check if input is empty and/or has dataset of required(not the default "required"attribute )
+      if (!item.value &&  item.dataset.required === "true") {
+        item.classList.add("invalid-input");
+        isformCompleted = false;
+      }
+    });
+    return isformCompleted;
+    
   };
 
   return (
@@ -188,7 +215,7 @@ const NewInvoiceModal = () => {
           <h4>Go Back</h4>
         </div>
 
-        <form>
+        <form action="submit" onSubmit={handleSubmit}>
           <h4>Bill from</h4>
           {/* SENDER ================= */}
           <label htmlFor="senderStreet" className="p-gray">
@@ -260,6 +287,7 @@ const NewInvoiceModal = () => {
             value={result.clientName}
             onChange={handleOnChange}
             placeholder="Alex Grinn"
+            data-required="true"
           />
           {/* CLIENT E-MAIL ================== */}
 
@@ -273,6 +301,7 @@ const NewInvoiceModal = () => {
             value={result.clientEmail}
             onChange={handleOnChange}
             placeholder="alexgrim@mail.com"
+            data-required="true"
           />
           {/* CLIENT STREET ================== */}
 
@@ -340,6 +369,7 @@ const NewInvoiceModal = () => {
             name="paymentDue"
             value={result.paymentDue}
             onChange={handleOnChange}
+            data-required="true"
           />
 
           {/* PAYMENT TERMS ================== */}
@@ -351,6 +381,7 @@ const NewInvoiceModal = () => {
             id="paymentTerms"
             name="paymentTerms"
             onChange={handleOnChange}
+            data-required="true"
           >
             <option value="1">Net 1 day</option>
             <option value="7">Net 7 day</option>
@@ -371,14 +402,13 @@ const NewInvoiceModal = () => {
             onChange={handleOnChange}
             placeholder="Graphic design"
           />
-          {/* PROVA ========================== */}
+          {/* ITEM LIST ========================== */}
           <div className="item-list">
             <h2>Item List</h2>
 
             {/* {[...Array(itemNumber)].map((index, i) => ( */}
             {result.items.map((item, i) => (
               <div className="item" key={i} id={i.toString()}>
-                <h1>{item.itemId}</h1>
                 {/* ITEM NAME */}
                 <div className="item-name">
                   <label htmlFor="name" className="p-gray">
@@ -391,6 +421,7 @@ const NewInvoiceModal = () => {
                     value={result.items[i].name}
                     onChange={handleItemOnChange}
                     placeholder="Item Name"
+                    data-required="true"
                   />
                 </div>
                 {/* ITEM QUANTITY */}
@@ -405,7 +436,6 @@ const NewInvoiceModal = () => {
                     value={result.items[i].quantity}
                     onChange={handleItemOnChange}
                     placeholder="1"
-                    required
                   />
                 </div>
                 {/* ITEM PRICE */}
@@ -437,25 +467,31 @@ const NewInvoiceModal = () => {
                     readOnly
                   />
                 </div>
-                <div className="delete-btn" onClick={(e) => deleteItem(item.itemId)}>
+                <div
+                  className="delete-btn"
+                  onClick={(e) => deleteItem(item.itemId)}
+                >
                   <img src="/assets/icon-delete.svg" alt="delete item" />
                 </div>
               </div>
             ))}
           </div>
-          <button className="btn addItem-btn" onClick={addNewItem}>
+          <button
+            className="btn addItem-btn"
+            type="button"
+            onClick={addNewItem}
+          >
             + Add New Item
           </button>
-          {/* PROVA ========================== */}
 
           <div className="invoiceDetails-btns modal-btn">
-            <button className="btn secondary-btn">Edit</button>
-            <button className="btn dark-btn">Save as Draft</button>
-            <button
-              className="btn purple-btn"
-              type="submit"
-              onClick={handleSubmit}
-            >
+            <button className="btn secondary-btn" type="button">
+              Edit
+            </button>
+            <button className="btn dark-btn" type="button">
+              Save as Draft
+            </button>
+            <button className="btn purple-btn" type="submit">
               Save &amp; Send
             </button>
           </div>
@@ -466,3 +502,6 @@ const NewInvoiceModal = () => {
 };
 
 export default NewInvoiceModal;
+function fetchInvoices(url: string) {
+  throw new Error("Function not implemented.");
+}

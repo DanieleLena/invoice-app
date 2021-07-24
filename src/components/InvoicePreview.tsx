@@ -8,8 +8,7 @@ import { Link } from "react-router-dom";
 const InvoicePreview: React.FC<{item: Invoice}> = ({item}) => {
 
 const {id,paymentDue,clientName, status,total} = item;
-   
-  //  onClick={openInvoice(item)}
+
   return (
     <Link to={`/${id}`}>
       <article className="invoice-preview">

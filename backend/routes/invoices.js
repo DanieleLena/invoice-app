@@ -23,6 +23,12 @@ router.route("/add").post((req, res) => {
     total,
   } = req.body;
 
+//  calcolate the total of th single invoice server side
+  let newTotal = 0;
+    items.map((item)=>{
+      newTotal = newTotal + item.total;
+    })
+
   const newInvoice = new Invoice({
     id,
     createdAt,
@@ -35,7 +41,7 @@ router.route("/add").post((req, res) => {
     senderAddress,
     clientAddress,
     items,
-    total,
+    total:newTotal,
   });
 
   newInvoice
@@ -64,8 +70,8 @@ router.route("/update/:id").post((req, res) => {
   Invoice.findById(req.params.id)
     .then((invoice) => {
         
-   invoice.id = req.body.id;
-   invoice.createdAt = req.body.createdAt;
+    invoice.id = req.body.id;
+    invoice.createdAt = req.body.createdAt;
     invoice.paymentDue = req.body.paymentDue;
     invoice.description = req.body.description;
     invoice.paymentTerms = req.body.paymentTerms;

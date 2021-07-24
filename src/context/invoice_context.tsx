@@ -163,6 +163,7 @@ export const InvoiceProvider: React.FC = ({ children }) => {
     <InvoiceContext.Provider
       value={{
         ...state,
+        fetchInvoices,
         toggleTheme,
         updateFilter,
         getSingleInvoice,

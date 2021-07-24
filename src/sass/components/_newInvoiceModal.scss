@@ -23,15 +23,31 @@
     width: 100%;
     height: 48px;
     border: 1px solid;
+    position: relative;
     border-color: #dfe3fa;
     box-shadow: none;
     margin-bottom: 2rem;
     border-radius: 4px;
     padding-left: 2rem;
   }
+
   h4 {
     color: $purple;
     margin-bottom: 1rem;
+  }
+}
+.invalid-input{
+  // background-color: red;
+  border: 1px solid red !important;
+  position: relative;
+
+   label::after{
+    content: 'Please fill this field';
+    position: absolute;
+    z-index: 999;
+    color: red;
+    top: 0px;
+    right: 20px;
   }
 }
 .city-postcode-country {
