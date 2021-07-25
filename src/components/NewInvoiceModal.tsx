@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  MutableRefObject,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Item, useInvoiceContext } from "../context/invoice_context";
 import { Invoice } from "../context/invoice_context";
 import { createId } from "../helpers";
@@ -14,6 +20,12 @@ const NewInvoiceModal = () => {
   } = useInvoiceContext()!;
 
   const modalRef = useRef();
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const [isFirstRender, setIsFirstRender] = useState(false);
+  useEffect(() => {
+    setIsFirstRender(true);
+  }, []);
 
   const [result, setResult] = useState<Invoice>({
     id: "",
@@ -170,22 +182,27 @@ const NewInvoiceModal = () => {
       setResult({ ...result, [e.target.name]: e.target.value });
     }
   };
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    console.log(result);
+  const handleSubmit = ( isDraft: boolean,e?: any,) => {
+    console.log(isDraft);
 
-   let isValidated =  validate(e); //if validate pass the validation return true
-   
-   if(isValidated){
-      addInvoice(result);
-    fetchInvoices(url);
-    toggleNewInvoiceModal();
-   }
-   
+    if (e) e.preventDefault();
+
+    let isValidated = true; //validate(); //if validate pass the validation return true
+
+    if (isValidated) {
+      if (isDraft) {
+        addInvoice(result, true);
+      } else {
+        addInvoice(result, false);
+      }
+      fetchInvoices(url);
+      toggleNewInvoiceModal();
+    }
   };
-  const validate = (e: any) => {
+  const validate = () => {
     let isformCompleted = true;
-    let formElements = e.currentTarget.elements;
+    const form: any = formRef.current;
+    let formElements = form.elements;
     formElements = [...formElements]; //transform the html collection in an array
     formElements = formElements.filter((item: any) => {
       //keep only the input node
@@ -193,18 +210,30 @@ const NewInvoiceModal = () => {
     });
     //remove the invalid-input class when you try to submit the seccond time
     formElements.forEach((item: any) => {
-      item.classList.remove("invalid-input");      
+      item.classList.remove("invalid-input");
     });
     formElements.forEach((item: any) => {
       //check if input is empty and/or has dataset of required(not the default "required"attribute )
-      if (!item.value &&  item.dataset.required === "true") {
+      if (!item.value && item.dataset.required === "true") {
         item.classList.add("invalid-input");
         isformCompleted = false;
       }
     });
     return isformCompleted;
-    
   };
+  // const saveAsDraft = (e: any) => {
+  //   e.preventDefault();
+  //   setResult({ ...result, status: "draft" });
+
+  //   // handleSubmit(e);
+  // };
+
+  // useEffect(() => {
+  // console.log(result);
+  // if(isFirstRender){
+  //     handleSubmit();
+  // }
+  // }, [result.status])
 
   return (
     <>
@@ -215,7 +244,7 @@ const NewInvoiceModal = () => {
           <h4>Go Back</h4>
         </div>
 
-        <form action="submit" onSubmit={handleSubmit}>
+        <form ref={formRef}>
           <h4>Bill from</h4>
           {/* SENDER ================= */}
           <label htmlFor="senderStreet" className="p-gray">
@@ -289,7 +318,7 @@ const NewInvoiceModal = () => {
             placeholder="Alex Grinn"
             data-required="true"
           />
-          {/* CLIENT E-MAIL ================== */}
+          {/* CLIENT EMAIL ================== */}
 
           <label htmlFor="clientEmail" className="p-gray">
             Client's Email
@@ -488,10 +517,20 @@ const NewInvoiceModal = () => {
             <button className="btn secondary-btn" type="button">
               Edit
             </button>
-            <button className="btn dark-btn" type="button">
+            <button
+              className="btn dark-btn"
+              name="sendAsDraft"
+              type="button"
+              onClick={() => handleSubmit(true)}
+            >
               Save as Draft
             </button>
-            <button className="btn purple-btn" type="submit">
+            <button
+              className="btn purple-btn"
+              name="send"
+              type="button"
+              onClick={() => handleSubmit(false)}
+            >
               Save &amp; Send
             </button>
           </div>

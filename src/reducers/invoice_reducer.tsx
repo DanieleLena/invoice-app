@@ -25,8 +25,8 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
     case "FETCH_INVOICES_ERROR": {
       return { ...state };
     }
-    case "ADD_INVOICE_COMPLETED": {
-      const newInvoice = action.payload;
+    case "ADD_INVOICE_COMPLETED": {      
+      const newInvoice = action.payload;     
       return { ...state, invoices: [...state.invoices, newInvoice] };
     }
     case "DELETE_INVOICE_COMPLETED": {
@@ -84,14 +84,14 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
 
       return { ...state, invoices: [...state.invoices, action.payload] };
     }
-    case "UPDATE_INVOICE_COMPLETED": {
-      const { newStatus, id } = action.payload;
+    // case "UPDATE_INVOICE_COMPLETED": {
+    //   const { newStatus, id } = action.payload;
     
-      return {
-        ...state,
-        single_invoice: { ...state.single_invoice, status: newStatus },
-      };
-    }
+    //   return {
+    //     ...state,
+    //     single_invoice: { ...state.single_invoice, status: newStatus },
+    //   };
+    // }
   }
 
   throw new Error(`No Matching "${action.type}" - action type`);

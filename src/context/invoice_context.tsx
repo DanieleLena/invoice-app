@@ -93,8 +93,11 @@ export const InvoiceProvider: React.FC = ({ children }) => {
     }
   };
   //ADD NEW INVOICE =============================================================
-  const addInvoice = async (invoice: any) => {
+  const addInvoice = async (invoice: any,isDraft:boolean) => {
     let addUrl = url + "add";
+    if(isDraft){
+      invoice = {...invoice,status: "draft"}
+    }
     try {
       const response = await axios.post(addUrl, invoice);
       console.log(response);
