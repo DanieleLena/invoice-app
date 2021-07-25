@@ -84,14 +84,14 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
 
       return { ...state, invoices: [...state.invoices, action.payload] };
     }
-    // case "UPDATE_INVOICE_COMPLETED": {
-    //   const { newStatus, id } = action.payload;
+    case "UPDATE_INVOICE_COMPLETED": {
+      const { newStatus, id } = action.payload;
     
-    //   return {
-    //     ...state,
-    //     single_invoice: { ...state.single_invoice, status: newStatus },
-    //   };
-    // }
+      return {
+        ...state,
+        single_invoice: { ...state.single_invoice, status: newStatus },
+      };
+    }
   }
 
   throw new Error(`No Matching "${action.type}" - action type`);

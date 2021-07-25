@@ -183,11 +183,8 @@ const NewInvoiceModal = () => {
     }
   };
   const handleSubmit = ( isDraft: boolean,e?: any,) => {
-    console.log(isDraft);
-
     if (e) e.preventDefault();
-
-    let isValidated = true; //validate(); //if validate pass the validation return true
+    let isValidated =true //validate(); //if validate pass the validation return true
 
     if (isValidated) {
       if (isDraft) {
@@ -195,7 +192,7 @@ const NewInvoiceModal = () => {
       } else {
         addInvoice(result, false);
       }
-      fetchInvoices(url);
+      // fetchInvoices(url);
       toggleNewInvoiceModal();
     }
   };
@@ -541,6 +538,3 @@ const NewInvoiceModal = () => {
 };
 
 export default NewInvoiceModal;
-function fetchInvoices(url: string) {
-  throw new Error("Function not implemented.");
-}

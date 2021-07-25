@@ -160,7 +160,7 @@ export const InvoiceProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     fetchInvoices(url);
-  }, []);
+  }, [state.total_invoices]);
 
   return (
     <InvoiceContext.Provider
