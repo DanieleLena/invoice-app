@@ -22,11 +22,15 @@ const NewInvoiceModal = (props: any) => {
 
   let { isEdit } = props;
 
-
   const modalRef = useRef();
   const formRef = useRef<HTMLFormElement>(null);
 
-  const [result, setResult] = useState<Invoice>({
+
+  const [result, setResult] = useState<Invoice>(()=> {
+    if(isEdit){
+      return single_invoice
+    }else
+    return {
     id: "",
     createdAt: "",
     paymentDue: "",
@@ -57,36 +61,10 @@ const NewInvoiceModal = (props: any) => {
       },
     ],
     total: 0,
-  });
-  // const [isFirstRender, setIsFirstRender] = useState(false);
-console.log(isEdit);
-
- useEffect(() => {
-   console.log(single_invoice);
-   
-   if(isEdit){
-    setResult(single_invoice);
-    console.log(result);
-    
-   }
-   console.log("inside BAD");
-   
- }, []);
-
-//  console.log(isFirstRender);
+  }
   
+  })
 
-  
-
-
-   
- 
-
-  // console.log(result);
-
-  const prova = () => {
-    setResult(single_invoice);
-  };
 
   const closeModal = (e: any) => {
     if (modalRef.current === e.target) {
@@ -526,7 +504,7 @@ console.log(isEdit);
           </button>
 
           <div className="invoiceDetails-btns modal-btn">
-            <button className="btn secondary-btn" type="button" onClick={prova}>
+            <button className="btn secondary-btn" type="button">
               Edit
             </button>
             <button
