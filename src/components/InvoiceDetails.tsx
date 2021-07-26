@@ -5,6 +5,7 @@ import { Redirect, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { useInvoiceContext } from "../context/invoice_context";
 import { formatDate, formatPrice } from "../helpers";
+import NewInvoiceModal from "./NewInvoiceModal";
 
 const InvoiceDetails = () => {
   let id = useParams();
@@ -14,6 +15,9 @@ const InvoiceDetails = () => {
     single_invoice,
     deleteInvoice,
     changeStatus,
+    toggleNewInvoiceModal,
+    toggleEditInvoiceModal,
+    isNewInvoiceOpen,
   } = useInvoiceContext();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isRedirect, setIsRedirect] = useState(false);
@@ -101,7 +105,9 @@ const getGrandTotal = () => {
         </div>
       </div>
       <div className="invoiceDetails-btns">
-        <button className="btn secondary-btn">Edit</button>
+        <button className="btn secondary-btn" onClick={toggleNewInvoiceModal}>
+          Edit
+        </button>
         <button className="btn delete" onClick={handleClick}>
           Delete
         </button>
@@ -173,12 +179,15 @@ const getGrandTotal = () => {
             </div>
           </div>
           {items.map(
-            (item: {
-              name: string;
-              quantity: number;
-              price: number;
-              total: number;
-            },i:any) => {
+            (
+              item: {
+                name: string;
+                quantity: number;
+                price: number;
+                total: number;
+              },
+              i: any
+            ) => {
               const { name, quantity, price, total } = item;
 
               return (
@@ -227,6 +236,7 @@ const getGrandTotal = () => {
       )}
       {/* REDIRECT TO HOMEPAGE IF THE INVOICE IS DELETED CORRECTLY */}
       {isRedirect && <Redirect push to="/" />}
+      {isNewInvoiceOpen && <NewInvoiceModal isEdit={true}/>}
     </section>
   );
 };

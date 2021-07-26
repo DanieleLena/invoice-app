@@ -25,8 +25,8 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
     case "FETCH_INVOICES_ERROR": {
       return { ...state };
     }
-    case "ADD_INVOICE_COMPLETED": {      
-      const newInvoice = action.payload;     
+    case "ADD_INVOICE_COMPLETED": {
+      const newInvoice = action.payload;
       return { ...state, invoices: [...state.invoices, newInvoice] };
     }
     case "DELETE_INVOICE_COMPLETED": {
@@ -79,6 +79,9 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
     case "TOGGLE_NEW_INVOICE_MODAL": {
       return { ...state, isNewInvoiceOpen: !state.isNewInvoiceOpen };
     }
+    case "TOGGLE_EDIT_INVOICE_MODAL": {
+      return { ...state, isNewInvoiceOpen: !state.isNewInvoiceOpen };
+    }
     case "HANDLE_SUBMIT": {
       console.log(action.payload);
 
@@ -86,7 +89,7 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
     }
     case "UPDATE_INVOICE_COMPLETED": {
       const { newStatus, id } = action.payload;
-    
+
       return {
         ...state,
         single_invoice: { ...state.single_invoice, status: newStatus },

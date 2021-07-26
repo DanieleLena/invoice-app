@@ -10,22 +10,21 @@ import { Invoice } from "../context/invoice_context";
 import { createId } from "../helpers";
 import { invoices_url as url } from "../helpers";
 
-const NewInvoiceModal = () => {
+const NewInvoiceModal = (props: any) => {
   const {
     toggleNewInvoiceModal,
     isNewInvoiceOpen,
     handleInvoiceForm,
     addInvoice,
     fetchInvoices,
+    single_invoice,
   } = useInvoiceContext()!;
+
+  let { isEdit } = props;
+
 
   const modalRef = useRef();
   const formRef = useRef<HTMLFormElement>(null);
-
-  const [isFirstRender, setIsFirstRender] = useState(false);
-  useEffect(() => {
-    setIsFirstRender(true);
-  }, []);
 
   const [result, setResult] = useState<Invoice>({
     id: "",
@@ -59,6 +58,35 @@ const NewInvoiceModal = () => {
     ],
     total: 0,
   });
+  // const [isFirstRender, setIsFirstRender] = useState(false);
+console.log(isEdit);
+
+ useEffect(() => {
+   console.log(single_invoice);
+   
+   if(isEdit){
+    setResult(single_invoice);
+    console.log(result);
+    
+   }
+   console.log("inside BAD");
+   
+ }, []);
+
+//  console.log(isFirstRender);
+  
+
+  
+
+
+   
+ 
+
+  // console.log(result);
+
+  const prova = () => {
+    setResult(single_invoice);
+  };
 
   const closeModal = (e: any) => {
     if (modalRef.current === e.target) {
@@ -182,9 +210,9 @@ const NewInvoiceModal = () => {
       setResult({ ...result, [e.target.name]: e.target.value });
     }
   };
-  const handleSubmit = ( isDraft: boolean,e?: any,) => {
+  const handleSubmit = (isDraft: boolean, e?: any) => {
     if (e) e.preventDefault();
-    let isValidated =true //validate(); //if validate pass the validation return true
+    let isValidated = validate(); //if validate pass the validation return true
 
     if (isValidated) {
       if (isDraft) {
@@ -192,7 +220,6 @@ const NewInvoiceModal = () => {
       } else {
         addInvoice(result, false);
       }
-      // fetchInvoices(url);
       toggleNewInvoiceModal();
     }
   };
@@ -218,19 +245,6 @@ const NewInvoiceModal = () => {
     });
     return isformCompleted;
   };
-  // const saveAsDraft = (e: any) => {
-  //   e.preventDefault();
-  //   setResult({ ...result, status: "draft" });
-
-  //   // handleSubmit(e);
-  // };
-
-  // useEffect(() => {
-  // console.log(result);
-  // if(isFirstRender){
-  //     handleSubmit();
-  // }
-  // }, [result.status])
 
   return (
     <>
@@ -429,10 +443,10 @@ const NewInvoiceModal = () => {
             placeholder="Graphic design"
           />
           {/* ITEM LIST ========================== */}
+
           <div className="item-list">
             <h2>Item List</h2>
 
-            {/* {[...Array(itemNumber)].map((index, i) => ( */}
             {result.items.map((item, i) => (
               <div className="item" key={i} id={i.toString()}>
                 {/* ITEM NAME */}
@@ -502,6 +516,7 @@ const NewInvoiceModal = () => {
               </div>
             ))}
           </div>
+
           <button
             className="btn addItem-btn"
             type="button"
@@ -511,7 +526,7 @@ const NewInvoiceModal = () => {
           </button>
 
           <div className="invoiceDetails-btns modal-btn">
-            <button className="btn secondary-btn" type="button">
+            <button className="btn secondary-btn" type="button" onClick={prova}>
               Edit
             </button>
             <button

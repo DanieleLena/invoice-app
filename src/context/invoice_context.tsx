@@ -135,8 +135,13 @@ export const InvoiceProvider: React.FC = ({ children }) => {
   };
   //TOGGLE THE NEW INVOICE MODAL ====================================================
   const toggleNewInvoiceModal = () => {
+    
     dispatch({ type: "TOGGLE_NEW_INVOICE_MODAL" });
+    
   };
+   const toggleEditInvoiceModal = () => {
+     dispatch({ type: "TOGGLE_EDIT_INVOICE_MODAL" });
+   };
   const handleInvoiceForm = (result: Invoice) => {
     dispatch({ type: "HANDLE_SUBMIT", payload: result });
   };
@@ -157,6 +162,20 @@ export const InvoiceProvider: React.FC = ({ children }) => {
       dispatch({ type: "UPDATE_INVOICE_ERROR", payload: id });
     }
   };
+  const editInvoice = async (invoice:Invoice, id:String) => {
+     let updateUrl = url + "update/" + id;
+
+       try {
+      const response = await axios.post(updateUrl, invoice);
+      dispatch({
+        type: "EDIT_INVOICE_COMPLETED",
+        payload: { id },
+      });
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: "EDIT_INVOICE_ERROR", payload: id });
+    }
+  }
 
   useEffect(() => {
     fetchInvoices(url);
@@ -177,6 +196,8 @@ export const InvoiceProvider: React.FC = ({ children }) => {
         deleteInvoice,
         addInvoice,
         changeStatus,
+        toggleEditInvoiceModal,
+        editInvoice,
       }}
     >
       {children}
