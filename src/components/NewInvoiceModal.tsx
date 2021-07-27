@@ -25,46 +25,43 @@ const NewInvoiceModal = (props: any) => {
   const modalRef = useRef();
   const formRef = useRef<HTMLFormElement>(null);
 
-
-  const [result, setResult] = useState<Invoice>(()=> {
-    if(isEdit){
-      return single_invoice
-    }else
-    return {
-    id: "",
-    createdAt: "",
-    paymentDue: "",
-    description: "",
-    paymentTerms: 0,
-    clientName: "",
-    clientEmail: "",
-    status: "pending",
-    senderAddress: {
-      street: "",
-      city: "",
-      postCode: "",
-      country: "",
-    },
-    clientAddress: {
-      street: "",
-      city: "",
-      postCode: "",
-      country: "",
-    },
-    items: [
-      {
-        itemId: Math.floor(1000 + Math.random() * 9000),
-        name: "",
-        quantity: 0,
-        price: 0,
+  const [result, setResult] = useState<Invoice>(() => {
+    if (isEdit) {
+      return single_invoice;
+    } else
+      return {
+        id: "",
+        createdAt: "",
+        paymentDue: "",
+        description: "",
+        paymentTerms: 0,
+        clientName: "",
+        clientEmail: "",
+        status: "pending",
+        senderAddress: {
+          street: "",
+          city: "",
+          postCode: "",
+          country: "",
+        },
+        clientAddress: {
+          street: "",
+          city: "",
+          postCode: "",
+          country: "",
+        },
+        items: [
+          {
+            itemId: Math.floor(1000 + Math.random() * 9000),
+            name: "",
+            quantity: 0,
+            price: 0,
+            total: 0,
+          },
+        ],
         total: 0,
-      },
-    ],
-    total: 0,
-  }
-  
-  })
-
+      };
+  });
 
   const closeModal = (e: any) => {
     if (modalRef.current === e.target) {
@@ -502,28 +499,44 @@ const NewInvoiceModal = (props: any) => {
           >
             + Add New Item
           </button>
-
-          <div className="invoiceDetails-btns modal-btn">
-            <button className="btn secondary-btn" type="button">
-              Edit
-            </button>
-            <button
-              className="btn dark-btn"
-              name="sendAsDraft"
-              type="button"
-              onClick={() => handleSubmit(true)}
-            >
-              Save as Draft
-            </button>
-            <button
-              className="btn purple-btn"
-              name="send"
-              type="button"
-              onClick={() => handleSubmit(false)}
-            >
-              Save &amp; Send
-            </button>
-          </div>
+          {isEdit ? (
+            <div className="invoiceDetails-btns modal-btn">
+              <button className="btn secondary-btn" type="button" onClick={toggleNewInvoiceModal}>
+                Cancel
+              </button>
+            
+              <button
+                className="btn purple-btn"
+                name="send"
+                type="button"
+                onClick={() => handleSubmit(false)}
+              >
+                Save Changes
+              </button>
+            </div>
+          ) : (
+            <div className="invoiceDetails-btns modal-btn">
+              <button className="btn secondary-btn" type="button">
+                Edit
+              </button>
+              <button
+                className="btn dark-btn"
+                name="sendAsDraft"
+                type="button"
+                onClick={() => handleSubmit(true)}
+              >
+                Save as Draft
+              </button>
+              <button
+                className="btn purple-btn"
+                name="send"
+                type="button"
+                onClick={() => handleSubmit(false)}
+              >
+                Save &amp; Send
+              </button>
+            </div>
+          )}
         </form>
       </div>
     </>

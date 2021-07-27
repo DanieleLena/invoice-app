@@ -78,6 +78,27 @@ body.dark-theme {
   .invoiceDetails-grandTotal {
     background-color: #0c0e16;
   }
+  .newInvoice-modal{
+    background-color:  $purple-dark;
+    h2{
+      color: $white;
+    }
+    input,select{
+      background-color: $purple-navBar;
+      border-color: $purple-navBar;
+      color: $white;
+    }
+  }
+     .item:nth-child(odd) {
+  background-color: $purple-dark;
+}
+.delete-modal {
+   background-color:  $purple-dark;
+   h2{
+      color: $white;
+    }
+}
+ 
 }
 //DARK THEME SETTIGS ======================================================
 
