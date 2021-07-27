@@ -63,7 +63,17 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
           invoice.status === draftTemp
         );
       });
-      return { ...state, filtered_invoices: filteredInvoices };
+      let sortedByDate = filteredInvoices.sort(function (
+        date1: any,
+        date2: any
+      ) {
+        date1 = new Date(date1.paymentDue);
+        date2 = new Date(date2.paymentDue);
+        if (date1 > date2) return 1;
+        if (date1 < date2) return -1;
+      });
+      
+      return { ...state, filtered_invoices: sortedByDate };
     }
     case "GET_SINGLE_INVOICE": {
       let { id } = payload;
@@ -94,6 +104,14 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
         ...state,
         single_invoice: { ...state.single_invoice, status: newStatus },
       };
+    }
+    case "EDIT_INVOICE_COMPLETED": {
+      return { ...state, single_invoice: action.payload };
+    }
+    case "EDIT_INVOICE_ERROR": {
+      console.log("some error");
+      
+      return { ...state };
     }
   }
 

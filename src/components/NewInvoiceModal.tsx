@@ -18,6 +18,7 @@ const NewInvoiceModal = (props: any) => {
     addInvoice,
     fetchInvoices,
     single_invoice,
+    editInvoice,
   } = useInvoiceContext()!;
 
   let { isEdit } = props;
@@ -86,9 +87,11 @@ const NewInvoiceModal = (props: any) => {
 
   //CREATES THE INVOICE ID ===========================================
   useEffect(() => {
+    if(!isEdit){
     let generateId = createId();
     setResult({ ...result, id: generateId });
     console.log("ID GENERATED " + generateId);
+    }
   }, []);
 
   //ITEMS FUCNTION ==================================================================
@@ -185,19 +188,31 @@ const NewInvoiceModal = (props: any) => {
       setResult({ ...result, [e.target.name]: e.target.value });
     }
   };
-  const handleSubmit = (isDraft: boolean, e?: any) => {
+
+  
+  const handleSubmit = (action: "ADD" |"DRAFT"|"EDIT" , e?: any) => {
     if (e) e.preventDefault();
-    let isValidated = validate(); //if validate pass the validation return true
+    let isValidated = true//validate(); //if validate pass the validation return true
+
 
     if (isValidated) {
-      if (isDraft) {
-        addInvoice(result, true);
-      } else {
-        addInvoice(result, false);
+      switch (action) {
+        case "ADD":
+           addInvoice(result, false);
+          break;
+
+        case "DRAFT":
+          addInvoice(result, true);
+          break;
+        case "EDIT":
+          editInvoice(result,single_invoice._id);
+
+          break;
       }
       toggleNewInvoiceModal();
     }
   };
+
   const validate = () => {
     let isformCompleted = true;
     const form: any = formRef.current;
@@ -509,21 +524,21 @@ const NewInvoiceModal = (props: any) => {
                 className="btn purple-btn"
                 name="send"
                 type="button"
-                onClick={() => handleSubmit(false)}
+                onClick={() => handleSubmit("EDIT")}
               >
                 Save Changes
               </button>
             </div>
           ) : (
             <div className="invoiceDetails-btns modal-btn">
-              <button className="btn secondary-btn" type="button">
-                Edit
+              <button className="btn secondary-btn" type="button" onClick={toggleNewInvoiceModal} >
+                Discard
               </button>
               <button
                 className="btn dark-btn"
                 name="sendAsDraft"
                 type="button"
-                onClick={() => handleSubmit(true)}
+                onClick={() => handleSubmit("DRAFT")}
               >
                 Save as Draft
               </button>
@@ -531,7 +546,7 @@ const NewInvoiceModal = (props: any) => {
                 className="btn purple-btn"
                 name="send"
                 type="button"
-                onClick={() => handleSubmit(false)}
+                onClick={() => handleSubmit("ADD")}
               >
                 Save &amp; Send
               </button>

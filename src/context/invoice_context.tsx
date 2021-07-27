@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useContext, useEffect, useReducer, createContext } from "react";
 import reducer from "../reducers/invoice_reducer";
-import { invoices_url as url } from "../helpers";
+import { invoices_url, invoices_url as url } from "../helpers";
 import { useHistory } from "react-router-dom";
 
 
@@ -93,10 +93,10 @@ export const InvoiceProvider: React.FC = ({ children }) => {
     }
   };
   //ADD NEW INVOICE =============================================================
-  const addInvoice = async (invoice: any,isDraft:boolean) => {
+  const addInvoice = async (invoice: any, isDraft: boolean) => {
     let addUrl = url + "add";
-    if(isDraft){
-      invoice = {...invoice,status: "draft"}
+    if (isDraft) {
+      invoice = { ...invoice, status: "draft" };
     }
     try {
       const response = await axios.post(addUrl, invoice);
@@ -135,17 +135,19 @@ export const InvoiceProvider: React.FC = ({ children }) => {
   };
   //TOGGLE THE NEW INVOICE MODAL ====================================================
   const toggleNewInvoiceModal = () => {
-    
     dispatch({ type: "TOGGLE_NEW_INVOICE_MODAL" });
-    
   };
-   const toggleEditInvoiceModal = () => {
-     dispatch({ type: "TOGGLE_EDIT_INVOICE_MODAL" });
-   };
+  const toggleEditInvoiceModal = () => {
+    dispatch({ type: "TOGGLE_EDIT_INVOICE_MODAL" });
+  };
   const handleInvoiceForm = (result: Invoice) => {
     dispatch({ type: "HANDLE_SUBMIT", payload: result });
   };
-  const changeStatus = async (invoice: Invoice, status: string, id: string) => {
+  const changeStatus = async (
+    invoice: Invoice,
+    status: "pending" | "paid",
+    id: string
+  ) => {
     let updateUrl = url + "update/" + id;
 
     if (status === "pending") invoice.status = "paid";
@@ -162,24 +164,26 @@ export const InvoiceProvider: React.FC = ({ children }) => {
       dispatch({ type: "UPDATE_INVOICE_ERROR", payload: id });
     }
   };
-  const editInvoice = async (invoice:Invoice, id:String) => {
-     let updateUrl = url + "update/" + id;
+  const editInvoice = async (invoice: Invoice, id: String) => {
+    let updateUrl = url + "update/" + id;
 
-       try {
+    try {
       const response = await axios.post(updateUrl, invoice);
       dispatch({
         type: "EDIT_INVOICE_COMPLETED",
-        payload: { id },
+        payload: invoice,
       });
     } catch (error) {
       console.log(error);
       dispatch({ type: "EDIT_INVOICE_ERROR", payload: id });
     }
-  }
+  };
 
   useEffect(() => {
     fetchInvoices(url);
   }, [state.total_invoices]);
+
+ 
 
   return (
     <InvoiceContext.Provider

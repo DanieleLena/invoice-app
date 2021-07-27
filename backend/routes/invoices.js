@@ -81,7 +81,14 @@ router.route("/update/:id").post((req, res) => {
     invoice.senderAddress = req.body.senderAddress;
     invoice.clientAddress = req.body.clientAddress;
     invoice.items = req.body.items;
-    invoice.total = req.body.total;
+    
+
+    let newTotal = 0;
+    invoice.items.map((item) => {
+      newTotal = newTotal + item.total;
+    });
+
+    invoice.total = newTotal;;
 
     invoice.save()
     .then(()=> res.json('invoice updated'))
