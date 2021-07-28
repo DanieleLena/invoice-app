@@ -1,3 +1,62 @@
+# Invoice app
+
+
+This projects is from a  [Front-end Mentor](https://www.frontendmentor.io/solutions) challenge.
+
+![Invoice app cover](https://user-images.githubusercontent.com/75173681/127357360-77ccb933-0ae3-49d8-8f1b-34731e55ce0b.png)
+
+## Table of contents
+
+- [Overview](#overview)
+  - [Intro](#intro)
+  - [Links](#links)
+- [My process](#my-process)
+  - [Built with](#built-with)
+  - [Features](#features)
+  - [Useful resources](#useful-resources)
+
+## Overview
+
+### Intro
+Hello! After I've seen the beautiful website of [Boost](https://takeboost.com/) I decided to make my own project with the purpose of experiment with Three.js and GSAP. It's been pretty challenging especially make the animations adapt to all the different screen devices.
+
+
+### Links
+
+- [LIVE PREVIEW](https://enjoi-juice-bjv39ibtk-lennyman.vercel.app/) to check my solution.
+
+
+## My process
+
+### Built with
+ - React
+ - Node.js
+ - Express
+ - MongoDb
+ - SCSS
+ 
+
+### Features
+
+-I used Interface instead of Classes in several cases because The TypeScript compiler 
+uses interfaces solely for type-checking purposes but neither provides implementation 
+nor initialisation for them like classes.
+Interface is simply a structural contract that defines what the properties of an 
+object should have as a name and as a type. 
+
+
+-It's possible to filter the invoices by status: "paid" , "pending" and "draft", the property
+ "status" of the Invoice interface, infact can accept only these three values.
+
+-Pressing the  'Esc' key or clicking outside a modal ,will close any open modal, I made this feature with useCallback and
+useEffect
+
+-I used a custom system to validate the "new Invoice form", with a simple validate function 
+that iterate through all the input fields with a data-set of "required"(not the standard
+ requied attribute). The validate() return true if all the required input are filled.
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -14,33 +73,3 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
