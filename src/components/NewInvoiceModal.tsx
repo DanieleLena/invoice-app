@@ -22,7 +22,7 @@ const NewInvoiceModal = (props: any) => {
 
   let { isEdit } = props;
 
-  const modalRef = useRef();
+
   const formRef = useRef<HTMLFormElement>(null);
 
   const [result, setResult] = useState<Invoice>(() => {
@@ -62,15 +62,13 @@ const NewInvoiceModal = (props: any) => {
         total: 0,
       };
   });
-
+  // Close the modal when press 'Esc' OR outside the modal ==============================
+  const modalRef = useRef();
   const closeModal = (e: any) => {
     if (modalRef.current === e.target) {
       toggleNewInvoiceModal();
     }
   };
-
-  // Close the modal when press 'Esc' ================================
-
   const keyEsc = useCallback(
     (e: any) => {
       if (e.key === "Escape" && isNewInvoiceOpen) {
@@ -83,13 +81,12 @@ const NewInvoiceModal = (props: any) => {
     document.addEventListener("keydown", keyEsc);
     return () => document.removeEventListener("keydown", keyEsc);
   }, [keyEsc]);
-
   //CREATES THE INVOICE ID ===========================================
   useEffect(() => {
-    if(!isEdit){
-    let generateId = createId();
-    setResult({ ...result, id: generateId });
-    console.log("ID GENERATED " + generateId);
+    if (!isEdit) {
+      let generateId = createId();
+      setResult({ ...result, id: generateId });
+      console.log("ID GENERATED " + generateId);
     }
   }, []);
 
@@ -188,23 +185,21 @@ const NewInvoiceModal = (props: any) => {
     }
   };
 
-  
-  const handleSubmit = (action: "ADD" |"DRAFT"|"EDIT" , e?: any) => {
+  const handleSubmit = (action: "ADD" | "DRAFT" | "EDIT", e?: any) => {
     if (e) e.preventDefault();
-    let isValidated = true//validate(); //if validate pass the validation return true
-
+    let isValidated = true; //validate(); //if validate pass the validation return true
 
     if (isValidated) {
       switch (action) {
         case "ADD":
-           addInvoice(result, false);
+          addInvoice(result, false);
           break;
 
         case "DRAFT":
           addInvoice(result, true);
           break;
         case "EDIT":
-          editInvoice(result,single_invoice._id);
+          editInvoice(result, single_invoice._id);
 
           break;
       }

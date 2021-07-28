@@ -25,7 +25,6 @@ const Main = () => {
 
  console.log(shouldRenderChild);
  
-// isNewInvoiceOpen ? mountedStyle : unmountedStyle;
   return (
     <main className="main">
       <NewFiltersBtns />

@@ -1,5 +1,5 @@
 import { timeout } from "q";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { useState } from "react";
 import { Redirect, useParams } from "react-router";
 import { Link } from "react-router-dom";
@@ -23,10 +23,32 @@ const InvoiceDetails = () => {
   const [isRedirect, setIsRedirect] = useState(false);
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-   const shouldRenderChild = useDelayUnmount(isDeleteModalOpen, 300);
-   const shouldRenderChild2 = useDelayUnmount(isNewInvoiceOpen, 300);
-    const mountedStyle = { animation: "inAnimation 300ms ease-in" };
-    const unmountedStyle = { animation: "outAnimation 310ms ease-in" };
+  const shouldRenderChild = useDelayUnmount(isDeleteModalOpen, 300);
+  const shouldRenderChild2 = useDelayUnmount(isNewInvoiceOpen, 300);
+  const mountedStyle = { animation: "inAnimation 300ms ease-in" };
+  const unmountedStyle = { animation: "outAnimation 310ms ease-in" };
+
+  // Close the modal when press 'Esc' OR outside the modal ==============================
+  const modalRef = useRef();
+  const closeModal = (e: any) => {
+    if (modalRef.current === e.target) {
+      handleClick();
+    }
+  };
+  const keyEsc = useCallback(
+    (e: any) => {
+      if (e.key === "Escape" && isDeleteModalOpen) {
+        handleClick();
+      }
+    },
+    [isDeleteModalOpen]
+  );
+  useEffect(() => {
+    document.addEventListener("keydown", keyEsc);
+    return () => document.removeEventListener("keydown", keyEsc);
+  }, [keyEsc]);
+
+
 
 
   useEffect(() => {
@@ -80,16 +102,14 @@ const InvoiceDetails = () => {
     paymentDue,
   } = single_invoice;
 
-const getGrandTotal = () => {
-  let grandTotal = 0;  
-  items.map((item: { total: number; })=>{
-    const {total} = item;
-    grandTotal = grandTotal + total;
-  })
-  return formatPrice(grandTotal);
-}
-
-
+  const getGrandTotal = () => {
+    let grandTotal = 0;
+    items.map((item: { total: number }) => {
+      const { total } = item;
+      grandTotal = grandTotal + total;
+    });
+    return formatPrice(grandTotal);
+  };
 
   return (
     <section className="invoiceDetails-section">
@@ -221,6 +241,8 @@ const getGrandTotal = () => {
       {/* DELETE MODAL ===================================================*/}
       {shouldRenderChild && (
         <div
+        onClick={closeModal}
+          ref={modalRef}
           className="delete-modal-cover"
           style={isDeleteModalOpen ? mountedStyle : unmountedStyle}
         >
