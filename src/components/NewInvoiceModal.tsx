@@ -10,13 +10,12 @@ import { Invoice } from "../context/invoice_context";
 import { createId } from "../helpers";
 import { invoices_url as url } from "../helpers";
 
+
 const NewInvoiceModal = (props: any) => {
   const {
     toggleNewInvoiceModal,
     isNewInvoiceOpen,
-    handleInvoiceForm,
     addInvoice,
-    fetchInvoices,
     single_invoice,
     editInvoice,
   } = useInvoiceContext()!;
@@ -237,8 +236,7 @@ const NewInvoiceModal = (props: any) => {
   };
 
   return (
-    <>
-      <div className="modal-bg" ref={modalRef} onClick={closeModal}></div>
+    <div className="modal-bg" ref={modalRef} onClick={closeModal}>
       <div className="newInvoice-modal">
         <div className="go-back-container" onClick={toggleNewInvoiceModal}>
           <img src="/assets/icon-arrow-left.svg" alt=""></img>
@@ -516,10 +514,14 @@ const NewInvoiceModal = (props: any) => {
           </button>
           {isEdit ? (
             <div className="invoiceDetails-btns modal-btn">
-              <button className="btn secondary-btn" type="button" onClick={toggleNewInvoiceModal}>
+              <button
+                className="btn secondary-btn"
+                type="button"
+                onClick={toggleNewInvoiceModal}
+              >
                 Cancel
               </button>
-            
+
               <button
                 className="btn purple-btn"
                 name="send"
@@ -531,7 +533,11 @@ const NewInvoiceModal = (props: any) => {
             </div>
           ) : (
             <div className="invoiceDetails-btns modal-btn">
-              <button className="btn secondary-btn" type="button" onClick={toggleNewInvoiceModal} >
+              <button
+                className="btn secondary-btn"
+                type="button"
+                onClick={toggleNewInvoiceModal}
+              >
                 Discard
               </button>
               <button
@@ -554,7 +560,7 @@ const NewInvoiceModal = (props: any) => {
           )}
         </form>
       </div>
-    </>
+    </div>
   );
 };
 

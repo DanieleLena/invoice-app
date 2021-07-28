@@ -4,8 +4,9 @@ import { useState } from "react";
 import { Redirect, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { useInvoiceContext } from "../context/invoice_context";
-import { formatDate, formatPrice } from "../helpers";
+import { formatDate, formatPrice, useDelayUnmount } from "../helpers";
 import NewInvoiceModal from "./NewInvoiceModal";
+import { fadeIn } from "react-animations";
 
 const InvoiceDetails = () => {
   let id = useParams();
@@ -19,8 +20,13 @@ const InvoiceDetails = () => {
     toggleEditInvoiceModal,
     isNewInvoiceOpen,
   } = useInvoiceContext();
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isRedirect, setIsRedirect] = useState(false);
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+   const shouldRenderChild = useDelayUnmount(isDeleteModalOpen, 300);
+   const shouldRenderChild2 = useDelayUnmount(isNewInvoiceOpen, 300);
+    const mountedStyle = { animation: "inAnimation 300ms ease-in" };
+    const unmountedStyle = { animation: "outAnimation 310ms ease-in" };
 
 
   useEffect(() => {
@@ -85,8 +91,6 @@ const getGrandTotal = () => {
 
 
 
- 
-
   return (
     <section className="invoiceDetails-section">
       <Link to="/">
@@ -127,7 +131,6 @@ const getGrandTotal = () => {
           </button>
         )}
       </div>
-
       <div className="invoiceDetails-main">
         <div className="invoiceDetails-text">
           <div className="id-job">
@@ -215,8 +218,12 @@ const getGrandTotal = () => {
           </div>
         </div>
       </div>
-      {isDeleteModalOpen && (
-        <div className="delete-modal-cover">
+      {/* DELETE MODAL ===================================================*/}
+      {shouldRenderChild && (
+        <div
+          className="delete-modal-cover"
+          style={isDeleteModalOpen ? mountedStyle : unmountedStyle}
+        >
           <div className="delete-modal">
             <h2>Confirm Deletion</h2>
             <p>
@@ -236,7 +243,11 @@ const getGrandTotal = () => {
       )}
       {/* REDIRECT TO HOMEPAGE IF THE INVOICE IS DELETED CORRECTLY */}
       {isRedirect && <Redirect push to="/" />}
-      {isNewInvoiceOpen && <NewInvoiceModal isEdit={true}/>}
+      {shouldRenderChild2 && (
+        <div style={isNewInvoiceOpen ? mountedStyle : unmountedStyle}>
+          <NewInvoiceModal isEdit={true} />
+        </div>
+      )}
     </section>
   );
 };
