@@ -18,14 +18,14 @@ This projects is from a  [Front-end Mentor](https://www.frontendmentor.io/soluti
 ## Overview
 
 ### Intro
-Hello! After I've seen the beautiful website of [Boost](https://takeboost.com/) I decided to make my own project with the purpose of experiment with Three.js and GSAP. It's been pretty challenging especially make the animations adapt to all the different screen devices.
+
 
 ![Invoice app design](https://user-images.githubusercontent.com/75173681/127358312-21a49aa1-85b8-4ea1-a3e7-ae599ef99ee3.png)
 
 
 ### Links
 
-- [LIVE PREVIEW](https://enjoi-juice-bjv39ibtk-lennyman.vercel.app/) to check my solution.
+- [LIVE PREVIEW]() to check my solution.
 
 
 ## My process
