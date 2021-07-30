@@ -20,18 +20,21 @@ This projects is from a  [Front-end Mentor](https://www.frontendmentor.io/soluti
 ### Intro
 
 
+
+
 ![Invoice app design](https://user-images.githubusercontent.com/75173681/127358312-21a49aa1-85b8-4ea1-a3e7-ae599ef99ee3.png)
 
 
 ### Links
 
-- [LIVE PREVIEW]() to check my solution.
+- [LIVE PREVIEW](https://invoice-app-daniele.herokuapp.com/) to check my solution.
 
 
 ## My process
 
 ### Built with
  - React
+ - Typescript
  - Node.js
  - Express
  - MongoDb
@@ -40,20 +43,20 @@ This projects is from a  [Front-end Mentor](https://www.frontendmentor.io/soluti
 
 ### Features
 
--I used Interface instead of Classes in several cases because The TypeScript compiler 
+- I used Interface instead of Classes in several cases because The TypeScript compiler 
 uses interfaces solely for type-checking purposes but neither provides implementation 
 nor initialisation for them like classes.
 Interface is simply a structural contract that defines what the properties of an 
 object should have as a name and as a type. 
 
 
--It's possible to filter the invoices by status: "paid" , "pending" and "draft", the property
+- It's possible to filter the invoices by status: "paid" , "pending" and "draft", the property
  "status" of the Invoice interface, infact can accept only these three values.
 
--Pressing the  'Esc' key or clicking outside a modal ,will close any open modal, I made this feature with useCallback and
+- Pressing the  'Esc' key or clicking outside a modal ,will close any open modal, I made this feature with useCallback and
 useEffect
 
--I used a custom system to validate the "new Invoice form", with a simple validate function 
+- I used a custom system to validate the "new Invoice form", with a simple validate function 
 that iterate through all the input fields with a data-set of "required"(not the standard
  requied attribute). The validate() return true if all the required input are filled.
 
