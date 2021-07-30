@@ -177,7 +177,7 @@ const InvoiceDetails = () => {
           </div>
         </div>
         <div className="invoiceDetails-items-container">
-          <div className="invoiceDetails-item">
+          <div className="invoiceDetails-item titles">
             <div className="item-name">
               <p className="p-gray">Item</p>
             </div>
@@ -239,7 +239,7 @@ const InvoiceDetails = () => {
           <div className="delete-modal">
             <h2>Confirm Deletion</h2>
             <p>
-              Are you sure you want to delete invoice {`#${idInvoice}`}? This
+              Are you sure you want to delete invoice {`#${idInvoice}`}? <br></br> This
               action cannot be undone.
             </p>
             <div className="delete-btn-container">

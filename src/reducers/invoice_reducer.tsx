@@ -5,10 +5,11 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
 
   switch (type) {
     case "TOGGLE_THEME": {
-      if (state.isDark) document.body.classList.remove("dark-theme");
-      else {
-        document.body.classList.add("dark-theme");
-      }
+       if (state.isDark) {
+         document.body.classList.add("dark-theme");
+       } else {
+         document.body.classList.remove("dark-theme");
+       }
 
       return { ...state, isDark: !state.isDark };
     }

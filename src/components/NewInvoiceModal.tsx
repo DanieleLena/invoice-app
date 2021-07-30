@@ -238,6 +238,7 @@ const NewInvoiceModal = (props: any) => {
         </div>
 
         <form ref={formRef}>
+        <h1>{isEdit ? `Edit  #${result.id}` : "New Invoice"}</h1>
           <h4>Bill from</h4>
           {/* SENDER ================= */}
           <label htmlFor="senderStreet" className="p-gray">

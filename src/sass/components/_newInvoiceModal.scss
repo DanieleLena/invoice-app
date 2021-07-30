@@ -31,6 +31,9 @@
     border-radius: 4px;
     padding-left: 2rem;
   }
+  h1{
+    margin-bottom: 2rem;
+  }
 
   h4 {
     color: $purple;
@@ -119,7 +122,7 @@
     top: 80px; //navbar height
 
     width: 616px;
-    padding-bottom: 2rem;
+    padding-bottom: 10rem;
   }
   .modal-btn {
     position: block;
@@ -173,5 +176,7 @@
     top: 0;
     left: $navBar-vertical-width;
     overflow-y: scroll;
+    padding-bottom: 2rem;
+    padding: 2rem 5rem;
   }
 }

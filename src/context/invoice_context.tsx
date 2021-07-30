@@ -53,10 +53,11 @@ interface State {
   filter: Filter;
   single_invoice: Object;
 }
+
 const initialState: State = {
-  isDark: false,
+  isDark: true,
   isInvoicesLoading: false,
-  isNewInvoiceOpen: false, // TO  CHANGEEEEE
+  isNewInvoiceOpen: false, 
   invoices: [],
   filtered_invoices: [],
   total_invoices: 0,
@@ -73,12 +74,14 @@ const InvoiceContext = React.createContext(null);
 
 
 
+
 export const InvoiceProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const toggleTheme = () => {
     dispatch({ type: "TOGGLE_THEME" });
   };
+
   const fetchInvoices = async (url: string) => {
     dispatch({ type: "FETCH_INVOICES_START" });
     try {
