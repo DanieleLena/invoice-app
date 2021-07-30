@@ -1,5 +1,4 @@
 import React, {
-  MutableRefObject,
   useCallback,
   useEffect,
   useRef,
@@ -7,8 +6,7 @@ import React, {
 } from "react";
 import { Item, useInvoiceContext } from "../context/invoice_context";
 import { Invoice } from "../context/invoice_context";
-import { createId } from "../helpers";
-import { invoices_url as url } from "../helpers";
+import { createId, formatDate } from "../helpers";
 
 
 const NewInvoiceModal = (props: any) => {
@@ -31,7 +29,7 @@ const NewInvoiceModal = (props: any) => {
     } else
       return {
         id: "",
-        createdAt: "",
+        createdAt: formatDate(new Date().toDateString()),
         paymentDue: "",
         description: "",
         paymentTerms: 0,
@@ -75,6 +73,7 @@ const NewInvoiceModal = (props: any) => {
         toggleNewInvoiceModal();
       }
     },
+    // eslint-disable-next-line
     [isNewInvoiceOpen]
   );
   useEffect(() => {
@@ -86,8 +85,8 @@ const NewInvoiceModal = (props: any) => {
     if (!isEdit) {
       let generateId = createId();
       setResult({ ...result, id: generateId });
-      console.log("ID GENERATED " + generateId);
     }
+    // eslint-disable-next-line
   }, []);
 
   //ITEMS FUCNTION ==================================================================
@@ -187,7 +186,7 @@ const NewInvoiceModal = (props: any) => {
 
   const handleSubmit = (action: "ADD" | "DRAFT" | "EDIT", e?: any) => {
     if (e) e.preventDefault();
-    let isValidated = true; //validate(); //if validate pass the validation return true
+    let isValidated = validate(); //if validate pass the validation return true
 
     if (isValidated) {
       switch (action) {

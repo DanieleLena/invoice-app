@@ -1,5 +1,4 @@
 import React from "react";
-import { isTemplateTail } from "typescript";
 import { Invoice } from "../context/invoice_context";
 import {formatPrice,formatDate} from "../helpers"
 import { Link } from "react-router-dom";
@@ -24,7 +23,7 @@ const {id,paymentDue,clientName, status,total} = item;
             <div className="status-circle"></div>
             <h2>{status}</h2>
           </div>
-          <img src="/assets/icon-arrow-right.svg" className="right-arrow"></img>
+          <img src="/assets/icon-arrow-right.svg" alt="" className="right-arrow"></img>
         </div>
       </article>
     </Link>

@@ -23,7 +23,6 @@ const Main = () => {
    left: 0,
  } as React.CSSProperties;;
 
- console.log(shouldRenderChild);
  
   return (
     <main className="main">

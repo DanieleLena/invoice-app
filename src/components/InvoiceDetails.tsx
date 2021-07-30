@@ -1,4 +1,3 @@
-import { timeout } from "q";
 import React, { useCallback, useEffect, useRef } from "react";
 import { useState } from "react";
 import { Redirect, useParams } from "react-router";
@@ -6,7 +5,6 @@ import { Link } from "react-router-dom";
 import { useInvoiceContext } from "../context/invoice_context";
 import { formatDate, formatPrice, useDelayUnmount } from "../helpers";
 import NewInvoiceModal from "./NewInvoiceModal";
-import { fadeIn } from "react-animations";
 
 const InvoiceDetails = () => {
   let id = useParams();
@@ -17,7 +15,6 @@ const InvoiceDetails = () => {
     deleteInvoice,
     changeStatus,
     toggleNewInvoiceModal,
-    toggleEditInvoiceModal,
     isNewInvoiceOpen,
   } = useInvoiceContext();
   const [isRedirect, setIsRedirect] = useState(false);
@@ -41,6 +38,7 @@ const InvoiceDetails = () => {
         handleClick();
       }
     },
+    // eslint-disable-next-line
     [isDeleteModalOpen]
   );
   useEffect(() => {
@@ -65,12 +63,12 @@ const InvoiceDetails = () => {
 
   useEffect(() => {
     getSingleInvoice(id);
+    // eslint-disable-next-line
   }, [invoices]);
 
   //TO CHANGE WITH A LOADING STATUS LATER WHEN WE GONNA FETCH DATA FROM DATABASE
   if (single_invoice) {
     if (Object.keys(single_invoice).length === 0) {
-      console.log("laoding");
       return <h2>Loading</h2>;
     }
   } else {
@@ -102,14 +100,6 @@ const InvoiceDetails = () => {
     paymentDue,
   } = single_invoice;
 
-  const getGrandTotal = () => {
-    let grandTotal = 0;
-    items.map((item: { total: number }) => {
-      const { total } = item;
-      grandTotal = grandTotal + total;
-    });
-    return formatPrice(grandTotal);
-  };
 
   return (
     <section className="invoiceDetails-section">
@@ -234,7 +224,7 @@ const InvoiceDetails = () => {
 
           <div className="invoiceDetails-grandTotal">
             <p>Grand Total</p>
-            <h2>{getGrandTotal()}</h2>
+            <h2>{formatPrice(total)}</h2>
           </div>
         </div>
       </div>

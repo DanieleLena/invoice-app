@@ -1,6 +1,4 @@
-// import { stat } from "fs";
 import { Invoice } from "../context/invoice_context";
-import { invoices_url } from "../helpers";
 
 const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
   const { type, payload } = action;
@@ -18,7 +16,6 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
       return { ...state, isInvoicesLoading: true };
     }
     case "FETCH_INVOICES_COMPLETED": {
-      console.log(action.payload);
 
       return { ...state, isInvoicesLoading: false, invoices: action.payload };
     }
@@ -30,7 +27,6 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
       return { ...state, invoices: [...state.invoices, newInvoice] };
     }
     case "DELETE_INVOICE_COMPLETED": {
-      console.log("success");
       let newInvoiceList = state.invoices.filter((item: any) => {
         return item._id !== action.payload;
       });
@@ -71,6 +67,7 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
         date2 = new Date(date2.paymentDue);
         if (date1 > date2) return 1;
         if (date1 < date2) return -1;
+        return 1;
       });
       
       return { ...state, filtered_invoices: sortedByDate };
@@ -98,7 +95,7 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
       return { ...state, invoices: [...state.invoices, action.payload] };
     }
     case "UPDATE_INVOICE_COMPLETED": {
-      const { newStatus, id } = action.payload;
+      const { newStatus } = action.payload;
 
       return {
         ...state,
@@ -106,10 +103,10 @@ const invoice_reducer = (state: any, action: { type: any; payload?: any }) => {
       };
     }
     case "EDIT_INVOICE_COMPLETED": {
-      return { ...state, single_invoice: action.payload };
+      const {invoice} = action.payload;
+      return { ...state, single_invoice: invoice };
     }
     case "EDIT_INVOICE_ERROR": {
-      console.log("some error");
       
       return { ...state };
     }

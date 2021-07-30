@@ -1,8 +1,7 @@
 import axios from "axios";
-import React, { useContext, useEffect, useReducer, createContext } from "react";
+import React, { useContext, useEffect, useReducer } from "react";
 import reducer from "../reducers/invoice_reducer";
-import { invoices_url, invoices_url as url } from "../helpers";
-import { useHistory } from "react-router-dom";
+import { invoices_url as url } from "../helpers";
 
 
 export interface Item {
@@ -112,7 +111,7 @@ export const InvoiceProvider: React.FC = ({ children }) => {
 
     try {
       const response = await axios.delete(deleteUrl);
-      dispatch({ type: "DELETE_INVOICE_COMPLETED", payload: id });
+      dispatch({ type: "DELETE_INVOICE_COMPLETED", payload: {id,response} });
     } catch (error) {
       console.log(error);
       dispatch({ type: "DELETE_INVOICE_ERROR", payload: id });
@@ -157,7 +156,7 @@ export const InvoiceProvider: React.FC = ({ children }) => {
       const response = await axios.post(updateUrl, invoice);
       dispatch({
         type: "UPDATE_INVOICE_COMPLETED",
-        payload: { id, newStatus },
+        payload: { response, newStatus },
       });
     } catch (error) {
       console.log(error);
@@ -171,7 +170,7 @@ export const InvoiceProvider: React.FC = ({ children }) => {
       const response = await axios.post(updateUrl, invoice);
       dispatch({
         type: "EDIT_INVOICE_COMPLETED",
-        payload: invoice,
+        payload: {invoice,response},
       });
     } catch (error) {
       console.log(error);

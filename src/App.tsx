@@ -1,7 +1,7 @@
 import React from "react";
 import "./sass/main.scss";
-import { NavBar, NewFiltersBtns, Main, InvoiceDetails } from "./components";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { NavBar, Main, InvoiceDetails } from "./components";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 function App() {
   return (

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useInvoiceContext } from "../context/invoice_context";
 
 const NewFiltersBtns = () => {
@@ -16,10 +16,12 @@ const NewFiltersBtns = () => {
 
   useEffect(() => {
     getTotalInvoices();
+    // eslint-disable-next-line
   }, [invoices])
 
   useEffect(() => {
-   getFilteredInvoices()
+    getFilteredInvoices();
+    // eslint-disable-next-line
   }, [filter,invoices])
   return (
     <div className="filters-btn-container">
@@ -40,7 +42,7 @@ const NewFiltersBtns = () => {
           <button className="dropdowBtn">
             Filter<span className="hidden-mobile-span">By Status</span>
             <span>
-              <img src="/assets/icon-arrow-down.svg"></img>
+              <img src="/assets/icon-arrow-down.svg" alt=""></img>
             </span>
           </button>
           <div className="dropdown-content">
@@ -78,7 +80,7 @@ const NewFiltersBtns = () => {
         </div>
         <div className="new-btn-container" onClick={toggleNewInvoiceModal}>
           <div className="plus-container">
-            <img src="/assets/icon-plus.svg"></img>
+            <img src="/assets/icon-plus.svg" alt=""></img>
           </div>
           <span>
             New <span className="hidden-mobile-span">Invoice</span>

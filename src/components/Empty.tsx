@@ -3,7 +3,7 @@ import React from "react";
 const Empty = () => {
   return (
     <section className="empty-container">
-      <img src="/assets/illustration-empty.svg"></img>
+      <img src="/assets/illustration-empty.svg" alt="no invoices"></img>
       <div className="empty-text">
         <h2>There is nothing here</h2>
         <p>
