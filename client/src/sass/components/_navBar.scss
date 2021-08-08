@@ -4,6 +4,9 @@
   background-color: $purple-navBar;
   display: flex;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
+  left: 0;
 }
 .purple-container {
   width: 72px;
