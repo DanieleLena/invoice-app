@@ -1,8 +1,8 @@
-// require("dotenv").config({ path: "ENV_ATLAS_URI" });
+require("dotenv").config({ path: ".ENV" });
 const mongoose = require("mongoose");
 
 // const uri = process.env.ATLAS_URI;
-
+// console.log(process.env.ATLAS_URI);
 // Connect Database
 const connectDB = async () => {
   try {
