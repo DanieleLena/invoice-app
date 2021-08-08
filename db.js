@@ -1,11 +1,12 @@
+// require("dotenv").config({ path: "ENV_ATLAS_URI" });
 const mongoose = require("mongoose");
-require("dotenv").config();
-const uri = process.env.ATLAS_URI;
+
+// const uri = process.env.ATLAS_URI;
 
 // Connect Database
 const connectDB = async () => {
   try {
-    await mongoose.connect(uri, {
+    await mongoose.connect(process.env.ATLAS_URI, {
       useNewUrlParser: true,
       useCreateIndex: true,
       useFindAndModify: false,

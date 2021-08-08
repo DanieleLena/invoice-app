@@ -4,10 +4,11 @@ const mongoose = require("mongoose");
 const path = require('path');
 const connectDB = require("./db");
 const invoicesRouter = require("./routes/invoices");
+const dotenv = require("dotenv");
 
 
 
-require("dotenv").config();
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 5000;
