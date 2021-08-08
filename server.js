@@ -24,7 +24,7 @@ connection.once("open", () => {
 });
 
 const invoicesRouter = require('./routes/invoices');
-const { resolve } = require("path");
+
 
 app.use('/invoices', invoicesRouter);
 
