@@ -50,5 +50,5 @@ export function useDelayUnmount(isMounted: boolean, delayTime: number) {
 
 
 
-export const invoices_url = "http://invoice-app-daniele.herokuapp.com/invoices/";
+export const invoices_url = "https://invoice-app-daniele.herokuapp.com/invoices/";
 
