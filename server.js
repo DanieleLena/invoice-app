@@ -3,6 +3,8 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const path = require('path');
 const connectDB = require("./db");
+const invoicesRouter = require("./routes/invoices");
+
 
 
 require("dotenv").config();
@@ -21,7 +23,6 @@ app.use(express.json());
 //   console.log("mongoDb database connection established succesfully");
 // });
 
-const invoicesRouter = require('./routes/invoices');
 
 
 app.use('/invoices', invoicesRouter);
