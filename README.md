@@ -17,6 +17,15 @@ This projects is from a  [Front-end Mentor](https://www.frontendmentor.io/soluti
 
 ## Overview
 
+👋 Hello, this is my first time using the MERN stack, because I always focused on the front-end using  React, but this project seemed to be perfect to practice with Express and MongoDB. 
+I also decided to use Typescript with React for the frontend that added an extra level of difficulty since I am still practicing this helpful tool.
+
+Overall, the project it's been very funny and interesting and let me with a lot of experience in many different tools.
+
+Since I didn't use any external library to handle the few animations on the app, they are not so smooth and I am working on it! 😄
+
+Any feedback about the app it's more than welcome!
+
 ### Intro
 
 
@@ -33,12 +42,13 @@ This projects is from a  [Front-end Mentor](https://www.frontendmentor.io/soluti
 ## My process
 
 ### Built with
- - React
- - Typescript
- - Node.js
- - Express
- - MongoDb
- - SCSS
+- MongoDb
+- Express
+- React
+- Node.js
+- Typescript
+- SCSS
+- Hosted on Heroku
  
 
 ### Features
@@ -58,7 +68,7 @@ useEffect
 
 - I used a custom system to validate the "new Invoice form", with a simple validate function 
 that iterate through all the input fields with a data-set of "required"(not the standard
- requied attribute). The validate() return true if all the required input are filled.
+ required attribute). The validate() return true if all the required input are filled.
 
 
 
